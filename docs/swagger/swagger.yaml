@@ -1,0 +1,61 @@
+basePath: /api/v1
+definitions:
+  wallet.ErrorResponse:
+    properties:
+      code:
+        example: 404
+        type: integer
+      message:
+        example: Not found
+        type: string
+    type: object
+  wallet.WalletResponse:
+    properties:
+      address:
+        example: 0x71C7656EC7ab88b098defB751B7401B5f6d8976F
+        type: string
+      balance:
+        example: "0.2451"
+        type: string
+      created_at:
+        example: "2025-06-07T02:33:34+08:00"
+        type: string
+      id:
+        example: 550e8400-e29b-41d4-a716-446655440000
+        type: string
+      type:
+        example: ETH
+        type: string
+    type: object
+info:
+  contact: {}
+  description: API Server for EC-Wallet application
+  title: EC-Wallet API
+  version: "1.0"
+paths:
+  /wallets/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get details of a specific wallet by ID
+      parameters:
+      - description: Wallet ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/wallet.WalletResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/wallet.ErrorResponse'
+      summary: Get wallet details
+      tags:
+      - wallets
+swagger: "2.0"
