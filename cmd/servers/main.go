@@ -11,7 +11,7 @@ import (
 // @title EC-Wallet API
 // @version 1.0
 // @description API Server for EC-Wallet application
-// @BasePath /api/v1
+// @BasePath /api
 
 func main() {
 	router := ginserver.SetupRouter()

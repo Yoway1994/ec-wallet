@@ -30,7 +30,7 @@ func SetupRouter() *gin.Engine {
 
 		walletV1 := api.Group("wallet/v1")
 		{
-			walletV1.GET("", wallet.Get)
+			walletV1.GET("/payment-address", wallet.GetPaymentAddress)
 		}
 	}
 

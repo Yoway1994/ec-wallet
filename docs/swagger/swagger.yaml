@@ -1,30 +1,28 @@
-basePath: /api/v1
+basePath: /api
 definitions:
   wallet.ErrorResponse:
     properties:
       code:
-        example: 404
+        example: 400
         type: integer
       message:
-        example: Not found
+        example: Invalid order ID
         type: string
     type: object
-  wallet.WalletResponse:
+  wallet.PaymentAddressResponse:
     properties:
       address:
-        example: 0x71C7656EC7ab88b098defB751B7401B5f6d8976F
+        example: bnb1w7jflwesfnrp0lfgnthkvq55m8gzrlav5ktmyk
         type: string
-      balance:
-        example: "0.2451"
+      chain:
+        example: BNB
         type: string
       created_at:
-        example: "2025-06-07T02:33:34+08:00"
         type: string
-      id:
-        example: 550e8400-e29b-41d4-a716-446655440000
+      expire_time:
         type: string
-      type:
-        example: ETH
+      order_id:
+        example: ORD12345678
         type: string
     type: object
 info:
@@ -33,15 +31,15 @@ info:
   title: EC-Wallet API
   version: "1.0"
 paths:
-  /wallets/{id}:
+  /wallet/v1/payment-address:
     get:
       consumes:
       - application/json
-      description: Get details of a specific wallet by ID
+      description: Allocate a BNB address for a specific order number
       parameters:
-      - description: Wallet ID
-        in: path
-        name: id
+      - description: Order ID
+        in: query
+        name: order_id
         required: true
         type: string
       produces:
@@ -50,12 +48,16 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/wallet.WalletResponse'
-        "404":
-          description: Not Found
+            $ref: '#/definitions/wallet.PaymentAddressResponse'
+        "400":
+          description: Invalid order ID
           schema:
             $ref: '#/definitions/wallet.ErrorResponse'
-      summary: Get wallet details
+        "500":
+          description: Server error
+          schema:
+            $ref: '#/definitions/wallet.ErrorResponse'
+      summary: Get payment address for an order
       tags:
-      - wallets
+      - payment
 swagger: "2.0"

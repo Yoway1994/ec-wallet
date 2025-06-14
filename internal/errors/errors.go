@@ -4,7 +4,24 @@ import "github.com/go-kratos/kratos/v2/errors"
 
 var (
 	// 使用領域語言：即使錯誤集中定義，也可以使用領域語言命名錯誤。
+	// Handlers
+	ErrMissingRequiredField = errors.BadRequest("MISSING_REQUIRED_FIELD", "必填欄位不能為空")
+	ErrInvalidParameter     = errors.BadRequest("INVALID_PARAM", "參數錯誤")
+	ErrInvalidFieldFormat   = errors.BadRequest("INVALID_FIELD_FORMAT", "欄位格式無效")
+	//
 	ErrDatabaseUnavailable = errors.ServiceUnavailable("DATABASE_UNAVAILABLE", "資料庫無法連線")
-	ErrUserNotFound        = errors.NotFound("USER_NOT_FOUND", "使用者不存在")
-	ErrInvalidParameter    = errors.BadRequest("INVALID_PARAM", "參數錯誤")
+	// Wallet
+	ErrWalletMnemonicRequired      = errors.InternalServer("WALLET_MNEMONIC_REQUIRED", "助記詞不能為空")
+	ErrWalletInvalidDerivationPath = errors.InternalServer("WALLET_INVALID_PATH", "錢包衍生路徑格式錯誤")
+	ErrWalletInvalidPathComponent  = errors.InternalServer("WALLET_INVALID_PATH_COMPONENT", "錢包衍生路徑分量無效")
+	// Address 地址池
+	ErrWalletInvalidAddressCount = errors.BadRequest("WALLET_INVALID_ADDRESS_COUNT", "地址數量必須為正數")
+	ErrWalletUnsupportedChain    = errors.BadRequest("WALLET_UNSUPPORTED_CHAIN", "不支持的區塊鏈類型")
+
+	// HDPath 相關錯誤
+	ErrHDPathInvalidFormat    = errors.InternalServer("HDPATH_INVALID_FORMAT", "HD 路徑格式無效")
+	ErrHDPathInvalidComponent = errors.InternalServer("HDPATH_INVALID_COMPONENT", "HD 路徑組件無效")
+	ErrHDPathTooShort         = errors.InternalServer("HDPATH_TOO_SHORT", "HD 路徑太短，不符合 BIP44 標準")
+	ErrHDPathInvalidPurpose   = errors.InternalServer("HDPATH_INVALID_PURPOSE", "HD 路徑的目的欄位無效")
+	ErrHDPathMissingHardened  = errors.InternalServer("HDPATH_MISSING_HARDENED", "HD 路徑需要硬化派生")
 )

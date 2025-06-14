@@ -3,10 +3,20 @@ module ec-wallet
 go 1.24.0
 
 require (
+	github.com/corvus-ch/shamir v1.0.1
+	github.com/decred/dcrd/dcrec/secp256k1/v4 v4.4.0
+	github.com/ethereum/go-ethereum v1.15.11
 	github.com/gin-gonic/gin v1.10.1
 	github.com/go-kratos/kratos/v2 v2.8.4
 	github.com/google/wire v0.6.0
+	github.com/shopspring/decimal v1.4.0
+	github.com/spf13/cobra v1.9.1
 	github.com/spf13/viper v1.20.1
+	github.com/swaggo/files v1.0.1
+	github.com/swaggo/gin-swagger v1.6.0
+	github.com/swaggo/swag v1.16.4
+	github.com/tyler-smith/go-bip32 v1.0.0
+	github.com/tyler-smith/go-bip39 v1.1.0
 	go.uber.org/zap v1.27.0
 	gopkg.in/natefinch/lumberjack.v2 v2.2.1
 	gorm.io/driver/postgres v1.6.0
@@ -14,14 +24,12 @@ require (
 )
 
 require (
+	github.com/FactomProject/basen v0.0.0-20150613233007-fe3947df716e // indirect
+	github.com/FactomProject/btcutilecc v0.0.0-20130527213604-d3a63a5752ec // indirect
 	github.com/KyleBanks/depth v1.2.1 // indirect
-	github.com/PuerkitoBio/purell v1.2.1 // indirect
-	github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578 // indirect
 	github.com/bytedance/sonic v1.13.3 // indirect
 	github.com/bytedance/sonic/loader v0.2.4 // indirect
 	github.com/cloudwego/base64x v0.1.5 // indirect
-	github.com/cloudwego/iasm v0.2.0 // indirect
-	github.com/cpuguy83/go-md2man/v2 v2.0.7 // indirect
 	github.com/fsnotify/fsnotify v1.8.0 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.9 // indirect
 	github.com/gin-contrib/sse v1.1.0 // indirect
@@ -34,6 +42,8 @@ require (
 	github.com/go-playground/validator/v10 v10.26.0 // indirect
 	github.com/go-viper/mapstructure/v2 v2.2.1 // indirect
 	github.com/goccy/go-json v0.10.5 // indirect
+	github.com/holiman/uint256 v1.3.2 // indirect
+	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20240606120523-5a60cdf6a761 // indirect
 	github.com/jackc/pgx/v5 v5.6.0 // indirect
@@ -50,21 +60,14 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/pelletier/go-toml/v2 v2.2.4 // indirect
 	github.com/rogpeppe/go-internal v1.14.1 // indirect
-	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/sagikazarmark/locafero v0.7.0 // indirect
-	github.com/shurcooL/sanitized_anchor_name v1.0.0 // indirect
 	github.com/sourcegraph/conc v0.3.0 // indirect
 	github.com/spf13/afero v1.12.0 // indirect
 	github.com/spf13/cast v1.7.1 // indirect
 	github.com/spf13/pflag v1.0.6 // indirect
 	github.com/subosito/gotenv v1.6.0 // indirect
-	github.com/swaggo/files v1.0.1 // indirect
-	github.com/swaggo/gin-swagger v1.6.0 // indirect
-	github.com/swaggo/swag v1.16.4 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	github.com/ugorji/go/codec v1.2.14 // indirect
-	github.com/urfave/cli/v2 v2.27.6 // indirect
-	github.com/xrash/smetrics v0.0.0-20240521201337-686a1a2994c1 // indirect
 	go.uber.org/multierr v1.10.0 // indirect
 	golang.org/x/arch v0.18.0 // indirect
 	golang.org/x/crypto v0.39.0 // indirect
@@ -76,7 +79,5 @@ require (
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20241223144023-3abc09e42ca8 // indirect
 	google.golang.org/grpc v1.67.3 // indirect
 	google.golang.org/protobuf v1.36.6 // indirect
-	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	sigs.k8s.io/yaml v1.4.0 // indirect
 )
