@@ -9,10 +9,14 @@ package wire
 import (
 	"ec-wallet/configs"
 	"ec-wallet/internal/domain/gorm_repo"
+	"ec-wallet/internal/domain/stream"
 	"ec-wallet/internal/domain/wallet"
+	"ec-wallet/internal/infrastructure/cache"
 	"ec-wallet/internal/infrastructure/database"
 	"ec-wallet/internal/infrastructure/repository/gorm_repo"
+	"ec-wallet/internal/infrastructure/stream"
 	"ec-wallet/internal/infrastructure/wallet"
+	"github.com/redis/go-redis/v9"
 	"gorm.io/gorm"
 	"sync"
 )
@@ -38,15 +42,20 @@ func NewWallet() (wallet.Wallet, error) {
 	return walletWallet, nil
 }
 
+func NewStreamService() (stream.Stream, error) {
+	client, err := NewRedisClient()
+	if err != nil {
+		return nil, err
+	}
+	streamStream := streamservice.NewStreamService(client)
+	return streamStream, nil
+}
+
 // wire.go:
 
 var db *gorm.DB
 
 var dbOnce sync.Once
-
-var config *configs.Config
-
-var configOnce sync.Once
 
 func NewDB() (*gorm.DB, error) {
 	var err error
@@ -61,6 +70,10 @@ func NewDB() (*gorm.DB, error) {
 	return db, err
 }
 
+var config *configs.Config
+
+var configOnce sync.Once
+
 func NewConfig() *configs.Config {
 	if config == nil {
 		configOnce.Do(func() {
@@ -68,4 +81,21 @@ func NewConfig() *configs.Config {
 		})
 	}
 	return config
+}
+
+var redisClient *redis.Client
+
+var redisClientOnce sync.Once
+
+func NewRedisClient() (*redis.Client, error) {
+	var err error
+	if redisClient == nil {
+		redisClientOnce.Do(func() {
+			redisClient, err = cache.NewRedisClient()
+			if err != nil {
+				return
+			}
+		})
+	}
+	return redisClient, nil
 }

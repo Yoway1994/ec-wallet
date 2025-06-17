@@ -12,6 +12,7 @@ CREATE TABLE wallet_address_pools (
     
     -- 狀態管理
     current_status VARCHAR(20) NOT NULL DEFAULT 'AVAILABLE',
+    reserved_until TIMESTAMP NULL,
     
     -- 基本時間戳
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -27,6 +28,7 @@ COMMENT ON COLUMN wallet_address_pools.chain IS '鏈標識符 (ETH, BTC, SOL 等
 COMMENT ON COLUMN wallet_address_pools.path IS '衍生路徑';
 COMMENT ON COLUMN wallet_address_pools.index IS '衍生路徑中的索引值';
 COMMENT ON COLUMN wallet_address_pools.current_status IS '當前狀態: AVAILABLE, RESERVED, BLACKLISTED';
+COMMENT ON COLUMN wallet_address_pools.reserved_until IS '地址佔用有效期至';
 
 -- 地址使用日誌表
 CREATE TABLE wallet_address_logs (

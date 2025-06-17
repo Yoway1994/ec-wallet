@@ -4,6 +4,7 @@ import (
 	"context"
 	gormrepo "ec-wallet/internal/domain/gorm_repo"
 	model "ec-wallet/internal/infrastructure/repository/model/gorm"
+	"time"
 
 	"gorm.io/gorm"
 )
@@ -23,9 +24,54 @@ func (repo *repository) QueryWalletAddressPools(ctx context.Context, tx *gorm.DB
 	return model.BatchWalletAddressPoolModelToDomain(fetched), nil
 }
 
+func (repo *repository) GetWalletAddressPool(ctx context.Context, tx *gorm.DB, params *gormrepo.QueryWalletAddressPoolsParams) (*gormrepo.WalletAddressPool, error) {
+	if tx == nil {
+		tx = repo.Db
+	}
+	var fetched model.WalletAddressPool
+	tx = repo.applyQueryWalletAddressPoolsParams(tx, params)
+	if err := tx.Take(&fetched).Error; err != nil {
+		return nil, err
+	}
+	return model.WalletAddressPoolModelToDomain(&fetched), nil
+}
+
+func (repo *repository) UpdateWalletAddressPools(ctx context.Context, tx *gorm.DB, updates *gormrepo.UpdateWalletAddressPoolsParams) (int64, error) {
+	if tx == nil {
+		tx = repo.Db
+	}
+
+	tx = repo.applyQueryWalletAddressPoolsParams(tx, &updates.Where)
+
+	updateMap := make(map[string]interface{})
+
+	if updates.CurrentStatus != nil {
+		updateMap["current_status"] = *updates.CurrentStatus
+	}
+
+	if updates.ReservedUntil != nil {
+		updateMap["reserved_until"] = *updates.ReservedUntil
+	}
+
+	updateMap["updated_at"] = time.Now()
+
+	// 執行更新
+	result := tx.Model(&model.WalletAddressPool{}).
+		Updates(updateMap)
+	if result.Error != nil {
+		return 0, result.Error
+	}
+
+	return result.RowsAffected, nil
+}
+
 func (repo *repository) applyQueryWalletAddressPoolsParams(query *gorm.DB, params *gormrepo.QueryWalletAddressPoolsParams) *gorm.DB {
 	if params == nil {
 		return query
+	}
+
+	if params.ID != nil {
+		query = query.Where("id = ?", params.ID)
 	}
 
 	if params.Address != nil {

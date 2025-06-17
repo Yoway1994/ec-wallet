@@ -9,18 +9,20 @@ type WalletAddressPool struct {
 	Path          string
 	Index         int
 	CurrentStatus string
+	ReservedUntil *time.Time
 	CreatedAt     time.Time
 	UpdatedAt     time.Time
 }
 
 type QueryWalletAddressPoolsParams struct {
+	ID            *uint64
 	Address       *string
 	Chain         *string
 	CurrentStatus *string
 }
 
-const (
-	AddressStatusAvailable   = "AVAILABLE"
-	AddressStatusReserved    = "RESERVED"
-	AddressStatusBlacklisted = "BLACKLISTED"
-)
+type UpdateWalletAddressPoolsParams struct {
+	Where         QueryWalletAddressPoolsParams
+	CurrentStatus *string
+	ReservedUntil *time.Time
+}

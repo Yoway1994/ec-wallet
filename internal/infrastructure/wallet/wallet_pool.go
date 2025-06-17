@@ -5,7 +5,6 @@ import (
 	gormrepo "ec-wallet/internal/domain/gorm_repo"
 	"ec-wallet/internal/domain/wallet"
 	"ec-wallet/internal/errors"
-	"fmt"
 	"time"
 )
 
@@ -21,7 +20,7 @@ import (
 // 永久刪除某地址:         Remove, Ban, Blacklist
 
 func (s *walletService) InitWalletAddressPools(ctx context.Context, chain string, count, batchSize int) ([]uint64, error) {
-	coinType, ok := wallet.SLIP0044[chain]
+	coinType, ok := wallet.SLIP0044SymbolToType[chain]
 	if !ok {
 		return nil, errors.ErrWalletUnsupportedChain
 	}
@@ -65,7 +64,7 @@ func (s *walletService) InitWalletAddressPools(ctx context.Context, chain string
 				Chain:         chain,
 				Path:          hdPath.String(),
 				Index:         index,
-				CurrentStatus: gormrepo.AddressStatusAvailable,
+				CurrentStatus: wallet.AddressStatusAvailable,
 				CreatedAt:     time.Now(),
 				UpdatedAt:     time.Now(),
 			}
@@ -100,30 +99,71 @@ func (s *walletService) AcquireAddress(ctx context.Context, opts ...wallet.Acqui
 		opt(&options)
 	}
 
-	// 取得助記詞
-	m := s.GetMnemonic()
+	// tx start
+	tx := s.repo.Begin()
+	defer s.repo.RollBack(tx)
 
-	status := gormrepo.AddressStatusAvailable
-	address, err := s.repo.QueryWalletAddressPools(ctx, nil, &gormrepo.QueryWalletAddressPoolsParams{
+	// 拿取Available address
+	status := wallet.AddressStatusAvailable
+	pool, err := s.repo.GetWalletAddressPool(ctx, tx, &gormrepo.QueryWalletAddressPoolsParams{
 		CurrentStatus: &status,
 	})
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println(address)
 
-	// 這一段先直接產地址, 將來改成從地址池取得
-	keyPair, err := s.DeriveKeyFromPath(m, wallet.NewStandardPath(wallet.CoinTypeETH, 0, 0))
+	// 改為佔用
+	expiryTime := time.Now().Add(options.ExpiresIn)
+	newStatus := wallet.AddressStatusReserved
+	rowsAffected, err := s.repo.UpdateWalletAddressPools(ctx, tx, &gormrepo.UpdateWalletAddressPoolsParams{
+		Where: gormrepo.QueryWalletAddressPoolsParams{
+			ID: &pool.ID,
+		},
+		CurrentStatus: &newStatus,
+		ReservedUntil: &expiryTime,
+	})
 	if err != nil {
 		return nil, err
 	}
-	return &wallet.AddressReservation{
-		Address:       keyPair.Address,
-		ReservedAt:    time.Now(),
-		ExpiresAt:     time.Now().Add(24 * time.Hour),
-		ReservationID: "",
-		CoinType:      wallet.CoinTypeETH,
-	}, nil
+	if rowsAffected != 1 {
+		return nil, errors.ErrWalletAddressPoolUpdate
+	}
+
+	// 增加調用紀錄
+	log := gormrepo.NewWalletAddressLog(
+		&gormrepo.NewWalletAddressLogParams{
+			AddressID:    pool.ID,
+			Operation:    wallet.AddressLogOperationPayment,
+			StatusAfter:  wallet.AddressStatusReserved,
+			StatusBefore: wallet.AddressStatusAvailable,
+			OperationAt:  time.Now(),
+			ValidUntil:   &expiryTime,
+			OrderID:      options.OrderID,
+			UserID:       options.UserID,
+		},
+	)
+
+	// create log
+	ids, err := s.repo.CreateWalletAddressLogs(ctx, tx, []*gormrepo.WalletAddressLog{log})
+	if err != nil {
+		return nil, err
+	}
+
+	if len(ids) != 1 {
+		return nil, errors.ErrWalletAddressLogCreate
+	}
+
+	_ = s.repo.Commit(tx)
+
+	// 產生地址佔用資訊
+	reservation := wallet.NewAddressReservation(&wallet.NewAddressReservationParams{
+		Address:    pool.Address,
+		AddressID:  pool.ID,
+		ReservedAt: time.Now(),
+		ExpiresAt:  expiryTime,
+		CoinType:   options.CoinType,
+	})
+	return reservation, nil
 }
 
 func (s *walletService) ReleaseAddress(ctx context.Context) {

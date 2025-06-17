@@ -1,6 +1,6 @@
 basePath: /api
 definitions:
-  wallet.ErrorResponse:
+  handlers.ErrorResponse:
     properties:
       code:
         example: 400
@@ -9,7 +9,17 @@ definitions:
         example: Invalid order ID
         type: string
     type: object
-  wallet.PaymentAddressResponse:
+  handlers.PaymentAddressRequest:
+    properties:
+      chain:
+        type: string
+      order_id:
+        type: string
+    required:
+    - chain
+    - order_id
+    type: object
+  handlers.PaymentAddressResponse:
     properties:
       address:
         example: bnb1w7jflwesfnrp0lfgnthkvq55m8gzrlav5ktmyk
@@ -31,33 +41,35 @@ info:
   title: EC-Wallet API
   version: "1.0"
 paths:
-  /wallet/v1/payment-address:
-    get:
+  /v1/payment-orders:
+    post:
       consumes:
       - application/json
-      description: Allocate a BNB address for a specific order number
+      description: Create a payment order and allocate a cryptocurrency address for
+        payment collection
       parameters:
-      - description: Order ID
-        in: query
-        name: order_id
+      - description: Payment Order Details
+        in: body
+        name: payment_order
         required: true
-        type: string
+        schema:
+          $ref: '#/definitions/handlers.PaymentAddressRequest'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/wallet.PaymentAddressResponse'
+            $ref: '#/definitions/handlers.PaymentAddressResponse'
         "400":
-          description: Invalid order ID
+          description: Invalid order information
           schema:
-            $ref: '#/definitions/wallet.ErrorResponse'
+            $ref: '#/definitions/handlers.ErrorResponse'
         "500":
           description: Server error
           schema:
-            $ref: '#/definitions/wallet.ErrorResponse'
-      summary: Get payment address for an order
+            $ref: '#/definitions/handlers.ErrorResponse'
+      summary: Create a payment order with cryptocurrency address
       tags:
       - payment
 swagger: "2.0"

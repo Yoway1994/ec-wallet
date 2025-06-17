@@ -17,11 +17,18 @@ var (
 	// Address 地址池
 	ErrWalletInvalidAddressCount = errors.BadRequest("WALLET_INVALID_ADDRESS_COUNT", "地址數量必須為正數")
 	ErrWalletUnsupportedChain    = errors.BadRequest("WALLET_UNSUPPORTED_CHAIN", "不支持的區塊鏈類型")
-
+	ErrWalletAddressPoolUpdate   = errors.InternalServer("WALLET_ADDRESS_POOL_UPDATE", "地址池更新錯誤")
+	// Logs 地址池更新紀錄
+	ErrWalletAddressLogCreate = errors.InternalServer("WALLET_ADDRESS_LOG_CREATE", "地址池紀錄創建錯誤")
 	// HDPath 相關錯誤
 	ErrHDPathInvalidFormat    = errors.InternalServer("HDPATH_INVALID_FORMAT", "HD 路徑格式無效")
 	ErrHDPathInvalidComponent = errors.InternalServer("HDPATH_INVALID_COMPONENT", "HD 路徑組件無效")
 	ErrHDPathTooShort         = errors.InternalServer("HDPATH_TOO_SHORT", "HD 路徑太短，不符合 BIP44 標準")
 	ErrHDPathInvalidPurpose   = errors.InternalServer("HDPATH_INVALID_PURPOSE", "HD 路徑的目的欄位無效")
 	ErrHDPathMissingHardened  = errors.InternalServer("HDPATH_MISSING_HARDENED", "HD 路徑需要硬化派生")
+	// Stream
+	ErrStreamRedisCheckFailed      = errors.InternalServer("STREAM_REDIS_CHECK_FAILED", "檢查監聽地址時發生錯誤")
+	ErrStreamAddressAlreadyWatched = errors.BadRequest("STREAM_ADDRESS_ALREADY_WATCHED", "該地址已經被監聽中")
+	ErrStreamAddWatchFailed        = errors.InternalServer("STREAM_ADD_WATCH_FAILED", "添加監聽請求到流失敗")
+	ErrStreamSetExpiryFailed       = errors.InternalServer("STREAM_SET_EXPIRY_FAILED", "設置監聽過期時間失敗")
 )

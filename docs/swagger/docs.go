@@ -15,9 +15,9 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/wallet/v1/payment-address": {
-            "get": {
-                "description": "Allocate a BNB address for a specific order number",
+        "/v1/payment-orders": {
+            "post": {
+                "description": "Create a payment order and allocate a cryptocurrency address for payment collection",
                 "consumes": [
                     "application/json"
                 ],
@@ -27,33 +27,35 @@ const docTemplate = `{
                 "tags": [
                     "payment"
                 ],
-                "summary": "Get payment address for an order",
+                "summary": "Create a payment order with cryptocurrency address",
                 "parameters": [
                     {
-                        "type": "string",
-                        "description": "Order ID",
-                        "name": "order_id",
-                        "in": "query",
-                        "required": true
+                        "description": "Payment Order Details",
+                        "name": "payment_order",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/handlers.PaymentAddressRequest"
+                        }
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/wallet.PaymentAddressResponse"
+                            "$ref": "#/definitions/handlers.PaymentAddressResponse"
                         }
                     },
                     "400": {
-                        "description": "Invalid order ID",
+                        "description": "Invalid order information",
                         "schema": {
-                            "$ref": "#/definitions/wallet.ErrorResponse"
+                            "$ref": "#/definitions/handlers.ErrorResponse"
                         }
                     },
                     "500": {
                         "description": "Server error",
                         "schema": {
-                            "$ref": "#/definitions/wallet.ErrorResponse"
+                            "$ref": "#/definitions/handlers.ErrorResponse"
                         }
                     }
                 }
@@ -61,7 +63,7 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "wallet.ErrorResponse": {
+        "handlers.ErrorResponse": {
             "type": "object",
             "properties": {
                 "code": {
@@ -74,7 +76,22 @@ const docTemplate = `{
                 }
             }
         },
-        "wallet.PaymentAddressResponse": {
+        "handlers.PaymentAddressRequest": {
+            "type": "object",
+            "required": [
+                "chain",
+                "order_id"
+            ],
+            "properties": {
+                "chain": {
+                    "type": "string"
+                },
+                "order_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "handlers.PaymentAddressResponse": {
             "type": "object",
             "properties": {
                 "address": {

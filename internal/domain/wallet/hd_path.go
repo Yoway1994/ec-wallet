@@ -25,7 +25,7 @@ const (
 	CoinTypeETH = uint32(60)
 )
 
-var SLIP0044 = map[string]uint32{
+var SLIP0044SymbolToType = map[string]uint32{
 	"BTC": CoinTypeBTC,
 	"ETH": CoinTypeETH,
 }

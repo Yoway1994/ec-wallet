@@ -10,6 +10,7 @@ import (
 
 type Config struct {
 	DB     DBConfig
+	Cache  RedisConfig
 	Wallet WalletConfig
 }
 
@@ -23,6 +24,14 @@ type DBConfig struct {
 	MaxIdleConns int
 	MaxOpenConns int
 	MaxLifetime  time.Duration
+}
+
+type RedisConfig struct {
+	Host       string
+	Port       string
+	Auth       string
+	Database   int
+	Max_active int
 }
 
 type WalletConfig struct {
@@ -67,6 +76,13 @@ func NewConfig() *Config {
 			MaxIdleConns: getIntWithDefault("db.maxidleconns", 5),
 			MaxOpenConns: getIntWithDefault("db.maxopenconns", 10),
 			MaxLifetime:  getDurationWithDefault("db.maxlifetime", 5*time.Minute),
+		},
+		Cache: RedisConfig{
+			Host:       getStringWithDefault("redis.host", "localhost"),
+			Port:       getStringWithDefault("redis.port", "6379"),
+			Auth:       getStringWithDefault("redis.auth", ""),
+			Database:   getIntWithDefault("redis.database", 0),
+			Max_active: getIntWithDefault("redis.max_active", 10),
 		},
 		Wallet: WalletConfig{
 			Mnemonic: getStringWithDefault("wallet.mnemonic", "test test test test test test test test test test test junk"),

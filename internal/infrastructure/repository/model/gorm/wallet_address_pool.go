@@ -7,14 +7,15 @@ import (
 
 // WalletAddressPool 錢包地址資源池模型
 type WalletAddressPool struct {
-	ID            uint64    `gorm:"column:id;primaryKey"`
-	Address       string    `gorm:"column:address;not null"`
-	Chain         string    `gorm:"column:chain;not null"`
-	Path          string    `gorm:"column:path;not null"`
-	Index         int       `gorm:"column:index;not null"`
-	CurrentStatus string    `gorm:"column:current_status;not null;default:AVAILABLE"`
-	CreatedAt     time.Time `gorm:"column:created_at;not null;default:CURRENT_TIMESTAMP"`
-	UpdatedAt     time.Time `gorm:"column:updated_at;not null;default:CURRENT_TIMESTAMP"`
+	ID            uint64     `gorm:"column:id;primaryKey"`
+	Address       string     `gorm:"column:address;not null"`
+	Chain         string     `gorm:"column:chain;not null"`
+	Path          string     `gorm:"column:path;not null"`
+	Index         int        `gorm:"column:index;not null"`
+	CurrentStatus string     `gorm:"column:current_status;not null;default:AVAILABLE"`
+	ReservedUntil *time.Time `gorm:"column:reserved_until"`
+	CreatedAt     time.Time  `gorm:"column:created_at;not null;default:CURRENT_TIMESTAMP"`
+	UpdatedAt     time.Time  `gorm:"column:updated_at;not null;default:CURRENT_TIMESTAMP"`
 }
 
 // TableName 指定資料表名稱
@@ -43,6 +44,7 @@ func WalletAddressPoolModelToDomain(m *WalletAddressPool) (d *gormrepo.WalletAdd
 		Path:          m.Path,
 		Index:         m.Index,
 		CurrentStatus: m.CurrentStatus,
+		ReservedUntil: m.ReservedUntil,
 		CreatedAt:     m.CreatedAt,
 		UpdatedAt:     m.UpdatedAt,
 	}
@@ -56,6 +58,7 @@ func WalletAddressPoolDomainToModel(d *gormrepo.WalletAddressPool) (m *WalletAdd
 		Path:          d.Path,
 		Index:         d.Index,
 		CurrentStatus: d.CurrentStatus,
+		ReservedUntil: d.ReservedUntil,
 		CreatedAt:     d.CreatedAt,
 		UpdatedAt:     d.UpdatedAt,
 	}

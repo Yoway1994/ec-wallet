@@ -1,8 +1,7 @@
 package ginserver
 
 import (
-	"ec-wallet/internal/adapters/http/gin-server/handlers/user"
-	"ec-wallet/internal/adapters/http/gin-server/handlers/wallet"
+	"ec-wallet/internal/adapters/http/gin-server/handlers"
 
 	"github.com/gin-gonic/gin"
 )
@@ -23,15 +22,7 @@ func SetupRouter() *gin.Engine {
 
 	api := r.Group("/api")
 	{
-		userV1 := api.Group("/user/v1")
-		{
-			userV1.GET("", user.Get)
-		}
-
-		walletV1 := api.Group("wallet/v1")
-		{
-			walletV1.GET("/payment-address", wallet.GetPaymentAddress)
-		}
+		api.POST("/v1/payment-orders", handlers.CreatePaymentOrder)
 	}
 
 	return r

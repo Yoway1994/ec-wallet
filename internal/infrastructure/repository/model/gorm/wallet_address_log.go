@@ -1,13 +1,14 @@
 package model
 
 import (
+	gormrepo "ec-wallet/internal/domain/gorm_repo"
 	"time"
 )
 
 // WalletAddressLog 地址狀態變更日誌模型
 type WalletAddressLog struct {
-	ID           uint       `gorm:"column:id;primaryKey"`
-	AddressID    uint       `gorm:"column:address_id;not null"`
+	ID           uint64     `gorm:"column:id;primaryKey"`
+	AddressID    uint64     `gorm:"column:address_id;not null"`
 	Operation    string     `gorm:"column:operation;not null"`
 	StatusAfter  string     `gorm:"column:status_after;not null"`
 	StatusBefore string     `gorm:"column:status_before"`
@@ -20,4 +21,27 @@ type WalletAddressLog struct {
 // TableName 指定資料表名稱
 func (WalletAddressLog) TableName() string {
 	return "wallet_address_logs"
+}
+
+// WalletAddressLogDomainToModel 轉換domain為model
+func WalletAddressLogDomainToModel(d *gormrepo.WalletAddressLog) (m *WalletAddressLog) {
+	return &WalletAddressLog{
+		ID:           d.ID,
+		AddressID:    d.AddressID,
+		Operation:    d.Operation,
+		StatusAfter:  d.StatusAfter,
+		StatusBefore: d.StatusBefore,
+		OperationAt:  d.OperationAt,
+		ValidUntil:   d.ValidUntil,
+		OrderID:      d.OrderID,
+		UserID:       d.UserID,
+	}
+}
+
+// BatchWalletAddressLogDomainToModel 批量轉換domain為model
+func BatchWalletAddressLogDomainToModel(ds []*gormrepo.WalletAddressLog) (ms []*WalletAddressLog) {
+	for _, d := range ds {
+		ms = append(ms, WalletAddressLogDomainToModel(d))
+	}
+	return
 }
