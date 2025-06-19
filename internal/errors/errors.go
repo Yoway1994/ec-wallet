@@ -8,8 +8,16 @@ var (
 	ErrMissingRequiredField = errors.BadRequest("MISSING_REQUIRED_FIELD", "必填欄位不能為空")
 	ErrInvalidParameter     = errors.BadRequest("INVALID_PARAM", "參數錯誤")
 	ErrInvalidFieldFormat   = errors.BadRequest("INVALID_FIELD_FORMAT", "欄位格式無效")
+	// Middleware
+	ErrRequestIDGeneration = errors.InternalServer("REQUEST_ID_GENERATION_FAILED", "請求 ID 生成失敗")
 	//
 	ErrDatabaseUnavailable = errors.ServiceUnavailable("DATABASE_UNAVAILABLE", "資料庫無法連線")
+
+	// Logger
+	ErrLoggerNotFound    = errors.InternalServer("LOGGER_NOT_FOUND", "Logger not found in context")
+	ErrInvalidLoggerType = errors.InternalServer("INVALID_LOGGER_TYPE", "Invalid logger type in context")
+
+	// Repository
 	// Wallet
 	ErrWalletMnemonicRequired      = errors.InternalServer("WALLET_MNEMONIC_REQUIRED", "助記詞不能為空")
 	ErrWalletInvalidDerivationPath = errors.InternalServer("WALLET_INVALID_PATH", "錢包衍生路徑格式錯誤")

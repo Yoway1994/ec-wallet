@@ -10,6 +10,7 @@ import (
 	"ec-wallet/internal/domain/wallet"
 	"ec-wallet/internal/infrastructure/cache"
 	"ec-wallet/internal/infrastructure/database"
+	"ec-wallet/internal/infrastructure/logger"
 	gormRepoImpl "ec-wallet/internal/infrastructure/repository/gorm_repo"
 	streamservice "ec-wallet/internal/infrastructure/stream"
 	walletservice "ec-wallet/internal/infrastructure/wallet"
@@ -17,6 +18,7 @@ import (
 
 	"github.com/google/wire"
 	"github.com/redis/go-redis/v9"
+	"go.uber.org/zap"
 	"gorm.io/gorm"
 )
 
@@ -62,6 +64,20 @@ func NewRedisClient() (*redis.Client, error) {
 		})
 	}
 	return redisClient, nil
+}
+
+var zLog *zap.Logger
+var zLogOnce sync.Once
+
+func NewLogger() (*zap.Logger, error) {
+	var err error
+	if zLog == nil {
+		zLogOnce.Do(func() {
+			config := NewConfig()
+			zLog = logger.NewLogger(config)
+		})
+	}
+	return zLog, err
 }
 
 func NewRepository() (gormrepo.Repo, error) {

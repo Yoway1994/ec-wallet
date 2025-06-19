@@ -1,0 +1,118 @@
+{"L":"INFO","time":"2025-06-19T01:15:57+08:00","M":"Request started","request_id":"6155a8b1-c51a-4a44-91ef-e212c6a9d26f","path":"/swagger/index.html","method":"GET","client_ip":"::1"}
+{"L":"INFO","time":"2025-06-19T01:15:57+08:00","M":"Request completed","request_id":"6155a8b1-c51a-4a44-91ef-e212c6a9d26f","path":"/swagger/index.html","method":"GET","client_ip":"::1","status":200,"latency":"1.169542ms"}
+{"L":"INFO","time":"2025-06-19T01:15:57+08:00","M":"Request started","request_id":"1ba4cfaf-1eb9-4836-a9ec-d03e50300573","path":"/swagger/swagger-ui-bundle.js","method":"GET","client_ip":"::1"}
+{"L":"INFO","time":"2025-06-19T01:15:57+08:00","M":"Request started","request_id":"7228901a-3701-488f-9a40-ef0a3f13864e","path":"/swagger/swagger-ui.css","method":"GET","client_ip":"::1"}
+{"L":"INFO","time":"2025-06-19T01:15:57+08:00","M":"Request started","request_id":"c0cd7ffd-a57c-4ab3-a8ca-075e9feaa8fe","path":"/swagger/swagger-ui-standalone-preset.js","method":"GET","client_ip":"::1"}
+{"L":"INFO","time":"2025-06-19T01:15:57+08:00","M":"Request completed","request_id":"c0cd7ffd-a57c-4ab3-a8ca-075e9feaa8fe","path":"/swagger/swagger-ui-standalone-preset.js","method":"GET","client_ip":"::1","status":200,"latency":"361.291µs"}
+{"L":"INFO","time":"2025-06-19T01:15:57+08:00","M":"Request completed","request_id":"7228901a-3701-488f-9a40-ef0a3f13864e","path":"/swagger/swagger-ui.css","method":"GET","client_ip":"::1","status":200,"latency":"4.748708ms"}
+{"L":"INFO","time":"2025-06-19T01:15:57+08:00","M":"Request completed","request_id":"1ba4cfaf-1eb9-4836-a9ec-d03e50300573","path":"/swagger/swagger-ui-bundle.js","method":"GET","client_ip":"::1","status":200,"latency":"7.641292ms"}
+{"L":"INFO","time":"2025-06-19T01:15:58+08:00","M":"Request started","request_id":"d65631b9-d775-4323-9ab1-977f355298ea","path":"/swagger/favicon-32x32.png","method":"GET","client_ip":"::1"}
+{"L":"INFO","time":"2025-06-19T01:15:58+08:00","M":"Request completed","request_id":"d65631b9-d775-4323-9ab1-977f355298ea","path":"/swagger/favicon-32x32.png","method":"GET","client_ip":"::1","status":200,"latency":"35.084µs"}
+{"L":"INFO","time":"2025-06-19T01:15:58+08:00","M":"Request started","request_id":"d0551893-a23d-4ce7-9528-dad215dad8af","path":"/swagger/doc.json","method":"GET","client_ip":"::1"}
+{"L":"INFO","time":"2025-06-19T01:15:58+08:00","M":"Request completed","request_id":"d0551893-a23d-4ce7-9528-dad215dad8af","path":"/swagger/doc.json","method":"GET","client_ip":"::1","status":200,"latency":"219.917µs"}
+{"L":"INFO","time":"2025-06-19T01:16:04+08:00","M":"Request started","request_id":"09c9beda-20bd-41fd-83b8-116268490bdc","path":"/api/v1/payment-orders","method":"POST","client_ip":"::1"}
+{"L":"INFO","time":"2025-06-19T01:16:04+08:00","M":"test"}
+{"L":"INFO","time":"2025-06-19T01:16:04+08:00","M":"Request completed","request_id":"09c9beda-20bd-41fd-83b8-116268490bdc","path":"/api/v1/payment-orders","method":"POST","client_ip":"::1","status":200,"latency":"18.042µs"}
+{"L":"INFO","time":"2025-06-19T01:16:41+08:00","M":"Request started","request_id":"8555b8b4-fa5a-495e-81d6-f3517faf7d2f","path":"/api/v1/payment-orders","method":"POST","client_ip":"::1"}
+{"L":"INFO","time":"2025-06-19T01:16:41+08:00","M":"test"}
+{"L":"INFO","time":"2025-06-19T01:16:41+08:00","M":"Request completed","request_id":"8555b8b4-fa5a-495e-81d6-f3517faf7d2f","path":"/api/v1/payment-orders","method":"POST","client_ip":"::1","status":200,"latency":"21.25µs"}
+{"L":"INFO","time":"2025-06-19T01:17:28+08:00","M":"Request started","request_id":"e3691a7c-0411-4dd8-9745-0cffd253b04e","path":"/api/v1/payment-orders","method":"POST","client_ip":"::1"}
+{"L":"INFO","time":"2025-06-19T01:17:28+08:00","M":"test"}
+{"L":"INFO","time":"2025-06-19T01:17:28+08:00","M":"Request completed","request_id":"e3691a7c-0411-4dd8-9745-0cffd253b04e","path":"/api/v1/payment-orders","method":"POST","client_ip":"::1","status":200,"latency":"231.75µs"}
+{"L":"INFO","time":"2025-06-19T01:19:36+08:00","M":"Request started","request_id":"6cba8ec1-f713-40dd-8bbd-b804bab8b4a3","path":"/api/v1/payment-orders","method":"POST","client_ip":"::1"}
+{"L":"INFO","time":"2025-06-19T01:19:36+08:00","M":"test"}
+{"L":"INFO","time":"2025-06-19T01:19:36+08:00","M":"Request completed","request_id":"6cba8ec1-f713-40dd-8bbd-b804bab8b4a3","path":"/api/v1/payment-orders","method":"POST","client_ip":"::1","status":200,"latency":"319.208µs"}
+{"L":"INFO","time":"2025-06-19T01:19:57+08:00","M":"Request started","request_id":"fdd293b4-f7f6-47c4-b726-2257060dd2ea","path":"/api/v1/payment-orders","method":"POST","client_ip":"::1"}
+{"L":"INFO","time":"2025-06-19T01:19:57+08:00","M":"test"}
+{"L":"INFO","time":"2025-06-19T01:19:57+08:00","M":"Request completed","request_id":"fdd293b4-f7f6-47c4-b726-2257060dd2ea","path":"/api/v1/payment-orders","method":"POST","client_ip":"::1","status":200,"latency":"211µs"}
+{"L":"INFO","time":"2025-06-19T01:21:02+08:00","M":"Request started","request_id":"1ca8a5fe-37f7-4d8b-8ddd-87aa58e3952c","path":"/api/v1/payment-orders","method":"POST","client_ip":"::1"}
+{"L":"INFO","time":"2025-06-19T01:21:02+08:00","M":"test","request_id":"1ca8a5fe-37f7-4d8b-8ddd-87aa58e3952c"}
+{"L":"INFO","time":"2025-06-19T01:21:02+08:00","M":"Request completed","request_id":"1ca8a5fe-37f7-4d8b-8ddd-87aa58e3952c","path":"/api/v1/payment-orders","method":"POST","client_ip":"::1","status":200,"latency":"157.541µs"}
+{"L":"INFO","time":"2025-06-19T01:24:23+08:00","M":"Request started","request_id":"b91cbae6-3fc5-4f7f-8aba-7a3e76f440fd","path":"/api/v1/payment-orders","method":"POST","client_ip":"::1"}
+{"L":"INFO","time":"2025-06-19T01:24:23+08:00","M":"Request completed","request_id":"b91cbae6-3fc5-4f7f-8aba-7a3e76f440fd","path":"/api/v1/payment-orders","method":"POST","client_ip":"::1","status":200,"latency":"77.991709ms"}
+{"L":"INFO","time":"2025-06-19T01:27:27+08:00","M":"Request started","request_id":"b1675b04-5053-4723-8995-7e73e377f621","path":"/api/v1/payment-orders","method":"POST","client_ip":"::1"}
+{"L":"DEBUG","time":"2025-06-19T01:27:27+08:00","M":"開始獲取支付地址","request_id":"b1675b04-5053-4723-8995-7e73e377f621"}
+{"L":"INFO","time":"2025-06-19T01:27:27+08:00","M":"Request completed","request_id":"b1675b04-5053-4723-8995-7e73e377f621","path":"/api/v1/payment-orders","method":"POST","client_ip":"::1","status":200,"latency":"7.022417ms"}
+{"L":"INFO","time":"2025-06-19T02:19:22+08:00","M":"Request started","request_id":"09e018e1-dc8a-4148-857a-8143e637b5cd","path":"/api/v1/payment-orders","method":"POST","client_ip":"::1"}
+{"L":"DEBUG","time":"2025-06-19T02:19:22+08:00","M":"開始獲取支付地址","request_id":"09e018e1-dc8a-4148-857a-8143e637b5cd"}
+{"L":"INFO","time":"2025-06-19T02:19:22+08:00","M":"Request completed","request_id":"09e018e1-dc8a-4148-857a-8143e637b5cd","path":"/api/v1/payment-orders","method":"POST","client_ip":"::1","status":200,"latency":"119.25µs"}
+{"L":"INFO","time":"2025-06-19T12:38:52+08:00","M":"Request started","request_id":"52b2324b-4d3e-49ca-ba72-8b3e03a4aba4","method":"GET"}
+{"L":"INFO","time":"2025-06-19T12:38:52+08:00","M":"Request completed","request_id":"52b2324b-4d3e-49ca-ba72-8b3e03a4aba4","method":"GET","status":200,"latency":"628.334µs"}
+{"L":"INFO","time":"2025-06-19T12:38:52+08:00","M":"Request started","request_id":"b1c24019-b53d-4b4f-8ba1-fdc508f523d6","method":"GET"}
+{"L":"INFO","time":"2025-06-19T12:38:52+08:00","M":"Request started","request_id":"58d07096-cb06-4376-9727-448222f9c52d","method":"GET"}
+{"L":"INFO","time":"2025-06-19T12:38:52+08:00","M":"Request started","request_id":"9b152cd8-0a51-41be-8004-07cfc8a5b86e","method":"GET"}
+{"L":"INFO","time":"2025-06-19T12:38:52+08:00","M":"Request completed","request_id":"58d07096-cb06-4376-9727-448222f9c52d","method":"GET","status":200,"latency":"985.792µs"}
+{"L":"INFO","time":"2025-06-19T12:38:52+08:00","M":"Request completed","request_id":"b1c24019-b53d-4b4f-8ba1-fdc508f523d6","method":"GET","status":200,"latency":"3.344416ms"}
+{"L":"INFO","time":"2025-06-19T12:38:52+08:00","M":"Request completed","request_id":"9b152cd8-0a51-41be-8004-07cfc8a5b86e","method":"GET","status":200,"latency":"1.440292ms"}
+{"L":"INFO","time":"2025-06-19T12:38:52+08:00","M":"Request started","request_id":"9ea056dd-6255-4611-8f4f-f0c77117dfac","method":"GET"}
+{"L":"INFO","time":"2025-06-19T12:38:52+08:00","M":"Request completed","request_id":"9ea056dd-6255-4611-8f4f-f0c77117dfac","method":"GET","status":200,"latency":"33.667µs"}
+{"L":"INFO","time":"2025-06-19T12:38:53+08:00","M":"Request started","request_id":"a13cb716-93a5-414f-a63f-29f260f9c082","method":"GET"}
+{"L":"INFO","time":"2025-06-19T12:38:53+08:00","M":"Request completed","request_id":"a13cb716-93a5-414f-a63f-29f260f9c082","method":"GET","status":200,"latency":"452.667µs"}
+{"L":"INFO","time":"2025-06-19T12:39:05+08:00","M":"Request started","request_id":"65190eba-c6c3-4902-a292-9f40a073245f","method":"POST"}
+{"L":"DEBUG","time":"2025-06-19T12:39:05+08:00","M":"開始獲取支付地址","request_id":"65190eba-c6c3-4902-a292-9f40a073245f","method":"POST"}
+{"L":"INFO","time":"2025-06-19T12:39:05+08:00","M":"Request completed","request_id":"65190eba-c6c3-4902-a292-9f40a073245f","method":"POST","status":200,"latency":"46.791µs"}
+{"L":"INFO","time":"2025-06-19T12:39:06+08:00","M":"Request started","request_id":"ee93ba3d-879c-41c4-9339-f939200bd183","method":"POST"}
+{"L":"DEBUG","time":"2025-06-19T12:39:06+08:00","M":"開始獲取支付地址","request_id":"ee93ba3d-879c-41c4-9339-f939200bd183","method":"POST"}
+{"L":"INFO","time":"2025-06-19T12:39:06+08:00","M":"Request completed","request_id":"ee93ba3d-879c-41c4-9339-f939200bd183","method":"POST","status":200,"latency":"67.292µs"}
+{"L":"INFO","time":"2025-06-19T12:39:08+08:00","M":"Request started","request_id":"55573141-95d8-4009-8b37-4c55e0884896","method":"POST"}
+{"L":"DEBUG","time":"2025-06-19T12:39:08+08:00","M":"開始獲取支付地址","request_id":"55573141-95d8-4009-8b37-4c55e0884896","method":"POST"}
+{"L":"INFO","time":"2025-06-19T12:39:08+08:00","M":"Request completed","request_id":"55573141-95d8-4009-8b37-4c55e0884896","method":"POST","status":200,"latency":"243.833µs"}
+{"L":"INFO","time":"2025-06-19T12:39:09+08:00","M":"Request started","request_id":"e5738739-c1d7-4b9b-9485-8a2bf0f350cd","method":"POST"}
+{"L":"DEBUG","time":"2025-06-19T12:39:09+08:00","M":"開始獲取支付地址","request_id":"e5738739-c1d7-4b9b-9485-8a2bf0f350cd","method":"POST"}
+{"L":"INFO","time":"2025-06-19T12:39:09+08:00","M":"Request completed","request_id":"e5738739-c1d7-4b9b-9485-8a2bf0f350cd","method":"POST","status":200,"latency":"17.958µs"}
+{"L":"INFO","time":"2025-06-19T12:39:13+08:00","M":"Request started","request_id":"5e8e75ae-e854-4f30-a2f7-c47dc1e5d663","method":"POST"}
+{"L":"DEBUG","time":"2025-06-19T12:39:13+08:00","M":"開始獲取支付地址","request_id":"5e8e75ae-e854-4f30-a2f7-c47dc1e5d663","method":"POST"}
+{"L":"INFO","time":"2025-06-19T12:39:13+08:00","M":"Request completed","request_id":"5e8e75ae-e854-4f30-a2f7-c47dc1e5d663","method":"POST","status":200,"latency":"28.375µs"}
+{"L":"INFO","time":"2025-06-19T12:39:13+08:00","M":"Request started","request_id":"e5ffaff7-017c-4068-825e-39539eaeb388","method":"POST"}
+{"L":"DEBUG","time":"2025-06-19T12:39:13+08:00","M":"開始獲取支付地址","request_id":"e5ffaff7-017c-4068-825e-39539eaeb388","method":"POST"}
+{"L":"INFO","time":"2025-06-19T12:39:13+08:00","M":"Request completed","request_id":"e5ffaff7-017c-4068-825e-39539eaeb388","method":"POST","status":200,"latency":"18.958µs"}
+{"L":"INFO","time":"2025-06-19T12:39:14+08:00","M":"Request started","request_id":"2168bd32-9d24-4986-90c5-664d1dd71cb9","method":"POST"}
+{"L":"DEBUG","time":"2025-06-19T12:39:14+08:00","M":"開始獲取支付地址","request_id":"2168bd32-9d24-4986-90c5-664d1dd71cb9","method":"POST"}
+{"L":"INFO","time":"2025-06-19T12:39:14+08:00","M":"Request completed","request_id":"2168bd32-9d24-4986-90c5-664d1dd71cb9","method":"POST","status":200,"latency":"17.25µs"}
+{"L":"INFO","time":"2025-06-19T12:39:14+08:00","M":"Request started","request_id":"ffe04a50-9650-4daa-bec1-b080b7e39cab","method":"POST"}
+{"L":"DEBUG","time":"2025-06-19T12:39:14+08:00","M":"開始獲取支付地址","request_id":"ffe04a50-9650-4daa-bec1-b080b7e39cab","method":"POST"}
+{"L":"INFO","time":"2025-06-19T12:39:14+08:00","M":"Request completed","request_id":"ffe04a50-9650-4daa-bec1-b080b7e39cab","method":"POST","status":200,"latency":"54.458µs"}
+{"L":"INFO","time":"2025-06-19T12:39:14+08:00","M":"Request started","request_id":"125d6867-5b82-49f9-b6c5-ee626b6f76aa","method":"POST"}
+{"L":"DEBUG","time":"2025-06-19T12:39:14+08:00","M":"開始獲取支付地址","request_id":"125d6867-5b82-49f9-b6c5-ee626b6f76aa","method":"POST"}
+{"L":"INFO","time":"2025-06-19T12:39:14+08:00","M":"Request completed","request_id":"125d6867-5b82-49f9-b6c5-ee626b6f76aa","method":"POST","status":200,"latency":"103.75µs"}
+{"L":"INFO","time":"2025-06-19T12:39:23+08:00","M":"Request started","request_id":"c831531b-00d0-42bf-a62d-13935c0024cc","method":"GET"}
+{"L":"INFO","time":"2025-06-19T12:39:23+08:00","M":"Request completed","request_id":"c831531b-00d0-42bf-a62d-13935c0024cc","method":"GET","status":200,"latency":"641.875µs"}
+{"L":"INFO","time":"2025-06-19T12:39:23+08:00","M":"Request started","request_id":"59175dc2-8a3a-40ac-9542-e55ae8a9a111","method":"GET"}
+{"L":"INFO","time":"2025-06-19T12:39:23+08:00","M":"Request started","request_id":"078e66e9-208f-4bd8-9674-e6871a70b60e","method":"GET"}
+{"L":"INFO","time":"2025-06-19T12:39:23+08:00","M":"Request completed","request_id":"59175dc2-8a3a-40ac-9542-e55ae8a9a111","method":"GET","status":200,"latency":"239.959µs"}
+{"L":"INFO","time":"2025-06-19T12:39:23+08:00","M":"Request completed","request_id":"078e66e9-208f-4bd8-9674-e6871a70b60e","method":"GET","status":200,"latency":"419.583µs"}
+{"L":"INFO","time":"2025-06-19T12:39:23+08:00","M":"Request started","request_id":"569a1451-13b3-412b-a166-429f1c5d71b4","method":"GET"}
+{"L":"INFO","time":"2025-06-19T12:39:23+08:00","M":"Request completed","request_id":"569a1451-13b3-412b-a166-429f1c5d71b4","method":"GET","status":200,"latency":"605.209µs"}
+{"L":"INFO","time":"2025-06-19T12:39:23+08:00","M":"Request started","request_id":"80d77d23-da7b-4d3c-86e2-22c5d64ed3a4","method":"GET"}
+{"L":"INFO","time":"2025-06-19T12:39:23+08:00","M":"Request completed","request_id":"80d77d23-da7b-4d3c-86e2-22c5d64ed3a4","method":"GET","status":200,"latency":"35.583µs"}
+{"L":"INFO","time":"2025-06-19T12:39:23+08:00","M":"Request started","request_id":"3d2d14db-5cc4-4aaf-bce4-7c13c59315e5","method":"GET"}
+{"L":"INFO","time":"2025-06-19T12:39:23+08:00","M":"Request completed","request_id":"3d2d14db-5cc4-4aaf-bce4-7c13c59315e5","method":"GET","status":200,"latency":"97.916µs"}
+{"L":"INFO","time":"2025-06-19T12:39:23+08:00","M":"Request started","request_id":"02749bd3-730d-4e41-8d5a-99f2487d50df","method":"GET"}
+{"L":"INFO","time":"2025-06-19T12:39:23+08:00","M":"Request completed","request_id":"02749bd3-730d-4e41-8d5a-99f2487d50df","method":"GET","status":304,"latency":"327.541µs"}
+{"L":"INFO","time":"2025-06-19T12:39:28+08:00","M":"Request started","request_id":"33ebde19-b8d3-451c-8c37-f2c0284b3809","method":"POST"}
+{"L":"DEBUG","time":"2025-06-19T12:39:28+08:00","M":"開始獲取支付地址","request_id":"33ebde19-b8d3-451c-8c37-f2c0284b3809","method":"POST"}
+{"L":"INFO","time":"2025-06-19T12:39:28+08:00","M":"Request completed","request_id":"33ebde19-b8d3-451c-8c37-f2c0284b3809","method":"POST","status":200,"latency":"17.292µs"}
+{"L":"INFO","time":"2025-06-19T12:40:19+08:00","M":"Request started","request_id":"8720fd1e-8a40-4ef5-88f9-4944c742f087","method":"POST"}
+{"L":"DEBUG","time":"2025-06-19T12:40:19+08:00","M":"開始獲取支付地址","request_id":"8720fd1e-8a40-4ef5-88f9-4944c742f087","method":"POST"}
+{"L":"INFO","time":"2025-06-19T12:40:19+08:00","M":"Request completed","request_id":"8720fd1e-8a40-4ef5-88f9-4944c742f087","method":"POST","status":200,"latency":"17.292µs"}
+{"L":"INFO","time":"2025-06-19T12:40:46+08:00","M":"Request started","request_id":"a19c3ac0-f539-4d41-a962-778801a27bb4","method":"POST"}
+{"L":"DEBUG","time":"2025-06-19T12:40:46+08:00","M":"開始獲取支付地址","request_id":"a19c3ac0-f539-4d41-a962-778801a27bb4","method":"POST"}
+{"L":"INFO","time":"2025-06-19T12:40:46+08:00","M":"Request completed","request_id":"a19c3ac0-f539-4d41-a962-778801a27bb4","method":"POST","status":200,"latency":"29.083µs"}
+{"L":"INFO","time":"2025-06-19T12:41:04+08:00","M":"Request started","request_id":"5df5a588-53d6-4d9b-ae16-e336f8655a57","method":"POST"}
+{"L":"DEBUG","time":"2025-06-19T12:41:04+08:00","M":"開始獲取支付地址","request_id":"5df5a588-53d6-4d9b-ae16-e336f8655a57","method":"POST"}
+{"L":"INFO","time":"2025-06-19T12:41:04+08:00","M":"Request completed","request_id":"5df5a588-53d6-4d9b-ae16-e336f8655a57","method":"POST","status":200,"latency":"20.166µs"}
+{"L":"INFO","time":"2025-06-19T12:41:06+08:00","M":"Request started","request_id":"12b03193-1606-4d07-8ea4-e8d76c54bda2","method":"POST"}
+{"L":"DEBUG","time":"2025-06-19T12:41:06+08:00","M":"開始獲取支付地址","request_id":"12b03193-1606-4d07-8ea4-e8d76c54bda2","method":"POST"}
+{"L":"INFO","time":"2025-06-19T12:41:06+08:00","M":"Request completed","request_id":"12b03193-1606-4d07-8ea4-e8d76c54bda2","method":"POST","status":200,"latency":"9.625µs"}
+{"L":"INFO","time":"2025-06-19T12:58:47+08:00","C":"middleware/logger.go:69","M":"Request started","request_id":"d57a894c-a19e-47c6-9b7d-e9e535b08ea2","method":"POST"}
+{"L":"DEBUG","time":"2025-06-19T12:58:47+08:00","C":"handlers/create_payment_order.go:53","M":"開始獲取支付地址","request_id":"d57a894c-a19e-47c6-9b7d-e9e535b08ea2","method":"POST"}
+{"L":"INFO","time":"2025-06-19T12:58:47+08:00","C":"middleware/logger.go:88","M":"Request completed","request_id":"d57a894c-a19e-47c6-9b7d-e9e535b08ea2","method":"POST","status":200,"latency":"63.708µs"}
+{"L":"INFO","time":"2025-06-19T13:04:23+08:00","C":"middleware/logger.go:69","M":"Request started","request_id":"f1305fa5-0672-47ac-8f75-48d79436c336","method":"POST"}
+{"L":"DEBUG","time":"2025-06-19T13:04:23+08:00","C":"handlers/create_payment_order.go:53","M":"開始獲取支付地址","request_id":"f1305fa5-0672-47ac-8f75-48d79436c336","method":"POST"}
+{"L":"INFO","time":"2025-06-19T13:04:23+08:00","C":"middleware/logger.go:88","M":"Request completed","request_id":"f1305fa5-0672-47ac-8f75-48d79436c336","method":"POST","status":200,"latency":"72.875µs"}
+2025-06-19T13:09:59+08:00	INFO	middleware/logger.go:69	Request started	{"request_id": "21e4ffe6-0953-4a2f-9c20-fe6593215602", "method": "POST"}
+2025-06-19T13:09:59+08:00	DEBUG	handlers/create_payment_order.go:53	開始獲取支付地址	{"request_id": "21e4ffe6-0953-4a2f-9c20-fe6593215602", "method": "POST"}
+2025-06-19T13:09:59+08:00	INFO	middleware/logger.go:88	Request completed	{"request_id": "21e4ffe6-0953-4a2f-9c20-fe6593215602", "method": "POST", "status": 200, "latency": "102.916µs"}
+2025-06-19T13:14:40+08:00	[34mINFO[0m	middleware/logger.go:69	Request started	{"request_id": "625a4123-8219-4320-b1e0-aa82352dc085", "method": "POST"}
+2025-06-19T13:14:40+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:53	開始獲取支付地址	{"request_id": "625a4123-8219-4320-b1e0-aa82352dc085", "method": "POST"}
+2025-06-19T13:14:40+08:00	[34mINFO[0m	middleware/logger.go:88	Request completed	{"request_id": "625a4123-8219-4320-b1e0-aa82352dc085", "method": "POST", "status": 200, "latency": "1.833042ms"}

@@ -12,6 +12,7 @@ type Config struct {
 	DB     DBConfig
 	Cache  RedisConfig
 	Wallet WalletConfig
+	Logger LoggerConfig
 }
 
 type DBConfig struct {
@@ -27,11 +28,20 @@ type DBConfig struct {
 }
 
 type RedisConfig struct {
-	Host       string
-	Port       string
-	Auth       string
-	Database   int
-	Max_active int
+	Host      string
+	Port      string
+	Auth      string
+	Database  int
+	MaxActive int
+}
+
+type LoggerConfig struct {
+	LogDir     string
+	MaxSize    int
+	MaxBackups int
+	MaxAge     int
+	Level      string
+	Env        string
 }
 
 type WalletConfig struct {
@@ -78,14 +88,22 @@ func NewConfig() *Config {
 			MaxLifetime:  getDurationWithDefault("db.maxlifetime", 5*time.Minute),
 		},
 		Cache: RedisConfig{
-			Host:       getStringWithDefault("redis.host", "localhost"),
-			Port:       getStringWithDefault("redis.port", "6379"),
-			Auth:       getStringWithDefault("redis.auth", ""),
-			Database:   getIntWithDefault("redis.database", 0),
-			Max_active: getIntWithDefault("redis.max_active", 10),
+			Host:      getStringWithDefault("redis.host", "localhost"),
+			Port:      getStringWithDefault("redis.port", "6379"),
+			Auth:      getStringWithDefault("redis.auth", ""),
+			Database:  getIntWithDefault("redis.database", 0),
+			MaxActive: getIntWithDefault("redis.max_active", 10),
 		},
 		Wallet: WalletConfig{
 			Mnemonic: getStringWithDefault("wallet.mnemonic", "test test test test test test test test test test test junk"),
+		},
+		Logger: LoggerConfig{
+			LogDir:     getStringWithDefault("logger.logdir", "log"),
+			MaxSize:    getIntWithDefault("logger.maxsize", 500),
+			MaxBackups: getIntWithDefault("logger.maxbackups", 2),
+			MaxAge:     getIntWithDefault("logger.maxage", 30),
+			Level:      getStringWithDefault("logger.level", "info"),
+			Env:        getStringWithDefault("logger.env", "dev"),
 		},
 	}
 }

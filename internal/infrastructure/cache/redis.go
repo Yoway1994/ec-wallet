@@ -14,7 +14,7 @@ func NewRedisClient() (*redis.Client, error) {
 		Addr:     fmt.Sprintf("%s:%s", config.Cache.Host, config.Cache.Port),
 		Password: config.Cache.Auth,
 		DB:       config.Cache.Database,
-		PoolSize: config.Cache.Max_active,
+		PoolSize: config.Cache.MaxActive,
 	})
 	_, err := client.Ping(context.Background()).Result()
 	if err != nil {

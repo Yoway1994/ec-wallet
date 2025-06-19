@@ -4,6 +4,7 @@ import (
 	"ec-wallet/internal/adapters/http/gin-server/utils"
 	"ec-wallet/internal/domain/stream"
 	"ec-wallet/internal/errors"
+	"ec-wallet/internal/infrastructure/logger"
 	"ec-wallet/internal/wire"
 	"net/http"
 	"time"
@@ -43,6 +44,13 @@ type ErrorResponse struct {
 // @Failure 500 {object} ErrorResponse "Server error"
 // @Router /v1/payment-orders [post]
 func CreatePaymentOrder(c *gin.Context) {
+	zapLogger, err := logger.GetLoggerFromGinContext(c)
+	if err != nil {
+		utils.HandleError(c, err)
+		return
+	}
+	//
+	zapLogger.Debug("開始獲取支付地址")
 	var req PaymentAddressRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
 		utils.HandleError(c, errors.ErrInvalidParameter.WithCause(err))

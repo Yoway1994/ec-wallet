@@ -1,7 +1,6 @@
 package utils
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -17,7 +16,6 @@ func HandleError(c *gin.Context, err error) {
 		})
 		return
 	}
-	fmt.Println(err)
 	// 未知錯誤
 	c.JSON(http.StatusInternalServerError, gin.H{
 		"code":    http.StatusInternalServerError,
