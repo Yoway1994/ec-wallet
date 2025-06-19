@@ -19,6 +19,9 @@ func main() {
 	// 設置區塊監聽器 (可選)
 	listener.RegisterBlockWatcher("NewBlock", chainlistener.BnbBlockWatcher())
 
+	// 監聽地址
+	go listener.OnWatchAddress()
+
 	// 啟動監聽器
 	if err := listener.Start(); err != nil {
 		log.Fatal("監聽器錯誤:", err)

@@ -2,6 +2,7 @@ package chainlistener
 
 import (
 	"context"
+	"ec-wallet/internal/wire"
 	"fmt"
 	"log"
 	"sync"
@@ -12,6 +13,7 @@ import (
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
+	"github.com/redis/go-redis/v9"
 )
 
 const (
@@ -19,6 +21,7 @@ const (
 )
 
 type EVMChainListener struct {
+	cache               *redis.Client
 	client              *ethclient.Client
 	eventWatchers       map[string]*EventWatcher
 	transactionWatchers map[string]*TransactionWatcher
@@ -52,12 +55,18 @@ func NewEVMChainListener(wsURL string) (*EVMChainListener, error) {
 	if err != nil {
 		return nil, fmt.Errorf("初始連接失敗: %w", err)
 	}
+
+	cache, err := wire.NewRedisClient()
+	if err != nil {
+		return nil, fmt.Errorf("redis init fail: %w", err)
+	}
 	return &EVMChainListener{
 		client:              client,
 		eventWatchers:       make(map[string]*EventWatcher),
 		transactionWatchers: make(map[string]*TransactionWatcher),
 		blockWatchers:       make(map[string]*BlockWatcher),
 		wsURL:               wsURL,
+		cache:               cache,
 	}, nil
 }
 
@@ -75,7 +84,6 @@ func (l *EVMChainListener) RegisterBlockWatcher(name string, watcher *BlockWatch
 
 func (l *EVMChainListener) Start() error {
 	l.ctx, l.cancel = context.WithCancel(context.Background())
-
 	for {
 		select {
 		case <-l.ctx.Done():

@@ -80,7 +80,6 @@ func Erc20TransferWatcher() *EventWatcher {
 			// 輸出日誌
 			fmt.Printf("💸 Transfer: 從 %s 到 %s 價值 %s\n",
 				transferEvent.From.Hex(), transferEvent.To.Hex(), transferEvent.Value.String())
-
 			return nil
 		},
 	}
