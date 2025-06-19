@@ -40,15 +40,9 @@ type ErrorResponse struct {
 // @Produce json
 // @Param payment_order body PaymentAddressRequest true "Payment Order Details"
 // @Success 200 {object} PaymentAddressResponse
-// @Failure 400 {object} ErrorResponse "Invalid order information"
-// @Failure 500 {object} ErrorResponse "Server error"
 // @Router /v1/payment-orders [post]
 func CreatePaymentOrder(c *gin.Context) {
-	zapLogger, err := logger.GetLoggerFromGinContext(c)
-	if err != nil {
-		utils.HandleError(c, err)
-		return
-	}
+	zapLogger := logger.FromGinContext(c)
 	//
 	zapLogger.Debug("開始獲取支付地址")
 	var req PaymentAddressRequest

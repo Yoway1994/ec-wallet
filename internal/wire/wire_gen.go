@@ -106,13 +106,12 @@ var zLog *zap.Logger
 
 var zLogOnce sync.Once
 
-func NewLogger() (*zap.Logger, error) {
-	var err error
+func NewLogger() *zap.Logger {
 	if zLog == nil {
 		zLogOnce.Do(func() {
 			config2 := NewConfig()
 			zLog = logger.NewLogger(config2)
 		})
 	}
-	return zLog, err
+	return zLog
 }

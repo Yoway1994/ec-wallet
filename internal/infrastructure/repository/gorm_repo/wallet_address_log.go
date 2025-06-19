@@ -3,12 +3,14 @@ package gormRepoImpl
 import (
 	"context"
 	gormrepo "ec-wallet/internal/domain/gorm_repo"
+	"ec-wallet/internal/infrastructure/logger"
 	model "ec-wallet/internal/infrastructure/repository/model/gorm"
 
 	"gorm.io/gorm"
 )
 
 func (repo *repository) CreateWalletAddressLogs(ctx context.Context, tx *gorm.DB, logs []*gormrepo.WalletAddressLog) ([]uint64, error) {
+	zapLogger := logger.FromContext(ctx)
 	if tx == nil {
 		tx = repo.Db
 	}
@@ -20,6 +22,7 @@ func (repo *repository) CreateWalletAddressLogs(ctx context.Context, tx *gorm.DB
 	modelLogs := model.BatchWalletAddressLogDomainToModel(logs)
 
 	if err := tx.Create(&modelLogs).Error; err != nil {
+		zapLogger.Error(err.Error())
 		return nil, err
 	}
 

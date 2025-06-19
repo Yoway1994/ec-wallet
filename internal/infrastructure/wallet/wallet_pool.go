@@ -101,7 +101,7 @@ func (s *walletService) AcquireAddress(ctx context.Context, opts ...wallet.Acqui
 
 	// tx start
 	tx := s.repo.Begin()
-	defer s.repo.RollBack(tx)
+	defer tx.Rollback()
 
 	// 拿取Available address
 	status := wallet.AddressStatusAvailable
@@ -153,7 +153,7 @@ func (s *walletService) AcquireAddress(ctx context.Context, opts ...wallet.Acqui
 		return nil, errors.ErrWalletAddressLogCreate
 	}
 
-	_ = s.repo.Commit(tx)
+	_ = tx.Commit()
 
 	// 產生地址佔用資訊
 	reservation := wallet.NewAddressReservation(&wallet.NewAddressReservationParams{

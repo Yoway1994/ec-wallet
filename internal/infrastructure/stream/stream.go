@@ -4,6 +4,7 @@ import (
 	"context"
 	"ec-wallet/internal/domain/stream"
 	"ec-wallet/internal/errors"
+	"ec-wallet/internal/infrastructure/logger"
 	"fmt"
 	"time"
 
@@ -23,19 +24,24 @@ type streamService struct {
 }
 
 func (s *streamService) WatchAddress(ctx context.Context, req *stream.WatchAddressRequest) error {
+	zapLogger := logger.FromContext(ctx)
 	//
 	watchKey := s.addressWatchKey(req.Chain, req.Address)
 
 	// 檢查是否已經在監聽
 	exists, err := s.cache.Exists(ctx, watchKey).Result()
 	if err != nil {
-		return errors.ErrStreamRedisCheckFailed.WithCause(err)
+		err = errors.ErrStreamRedisCheckFailed.WithCause(err)
+		zapLogger.Error(err.Error())
+		return err
 	}
 	if exists > 0 {
-		return errors.ErrStreamAddressAlreadyWatched.WithMetadata(map[string]string{
+		err = errors.ErrStreamAddressAlreadyWatched.WithMetadata(map[string]string{
 			"chain":   req.Chain,
 			"address": req.Address,
 		})
+		zapLogger.Error(err.Error())
+		return err
 	}
 
 	// 將監聽請求加入 Redis Stream
@@ -52,7 +58,9 @@ func (s *streamService) WatchAddress(ctx context.Context, req *stream.WatchAddre
 	}).Result()
 
 	if err != nil {
-		return errors.ErrStreamAddWatchFailed.WithCause(err)
+		err = errors.ErrStreamAddWatchFailed.WithCause(err)
+		zapLogger.Error(err.Error())
+		return err
 	}
 
 	// 記錄監聽狀態
@@ -63,12 +71,16 @@ func (s *streamService) WatchAddress(ctx context.Context, req *stream.WatchAddre
 	}
 
 	if err := s.cache.HSet(ctx, watchKey, watchData).Err(); err != nil {
-		return errors.ErrStreamAddWatchFailed.WithCause(err)
+		err = errors.ErrStreamAddWatchFailed.WithCause(err)
+		zapLogger.Error(err.Error())
+		return err
 	}
 
 	// 設置過期時間
 	if err := s.cache.Expire(ctx, watchKey, ttl).Err(); err != nil {
-		return errors.ErrStreamSetExpiryFailed.WithCause(err)
+		err = errors.ErrStreamSetExpiryFailed.WithCause(err)
+		zapLogger.Error(err.Error())
+		return err
 	}
 
 	return nil

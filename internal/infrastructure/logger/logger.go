@@ -1,9 +1,9 @@
 package logger
 
 import (
+	"context"
 	"ec-wallet/configs"
 	"ec-wallet/internal/domain"
-	"ec-wallet/internal/errors"
 	"fmt"
 	"os"
 	"time"
@@ -71,17 +71,24 @@ func NewLogger(config *configs.Config) *zap.Logger {
 	options := []zap.Option{}
 	options = append(options, zap.AddCaller(), zap.AddStacktrace(zap.ErrorLevel))
 
-	return zap.New(core, options...)
+	zapLogger := zap.New(core, options...)
+	_ = zap.ReplaceGlobals(zapLogger)
+
+	return zapLogger
 }
 
-func GetLoggerFromGinContext(ctx *gin.Context) (*zap.Logger, error) {
-	logger, ok := ctx.Get(string(domain.LoggerKey))
-	if !ok {
-		return nil, errors.ErrLoggerNotFound
+func FromGinContext(ctx *gin.Context) *zap.Logger {
+	if logger, ok := ctx.Get(string(domain.LoggerKey)); ok {
+		if zapLogger, ok := logger.(*zap.Logger); ok {
+			return zapLogger
+		}
 	}
-	zapLogger, ok := logger.(*zap.Logger)
-	if !ok {
-		return nil, errors.ErrInvalidLoggerType
+	return zap.L()
+}
+
+func FromContext(ctx context.Context) *zap.Logger {
+	if logger, ok := ctx.Value(string(domain.LoggerKey)).(*zap.Logger); ok {
+		return logger
 	}
-	return zapLogger, nil
+	return zap.L()
 }

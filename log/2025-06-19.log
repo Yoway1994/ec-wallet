@@ -116,3 +116,98 @@
 2025-06-19T13:14:40+08:00	[34mINFO[0m	middleware/logger.go:69	Request started	{"request_id": "625a4123-8219-4320-b1e0-aa82352dc085", "method": "POST"}
 2025-06-19T13:14:40+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:53	開始獲取支付地址	{"request_id": "625a4123-8219-4320-b1e0-aa82352dc085", "method": "POST"}
 2025-06-19T13:14:40+08:00	[34mINFO[0m	middleware/logger.go:88	Request completed	{"request_id": "625a4123-8219-4320-b1e0-aa82352dc085", "method": "POST", "status": 200, "latency": "1.833042ms"}
+2025-06-19T23:29:46+08:00	[34mINFO[0m	middleware/logger.go:69	Request started	{"request_id": "0014387e-c130-44aa-80f8-ea2f4529915a", "method": "GET"}
+2025-06-19T23:29:46+08:00	[34mINFO[0m	middleware/logger.go:88	Request completed	{"request_id": "0014387e-c130-44aa-80f8-ea2f4529915a", "method": "GET", "status": 200, "latency": "429.5µs"}
+2025-06-19T23:29:46+08:00	[34mINFO[0m	middleware/logger.go:69	Request started	{"request_id": "7e13b9a8-38aa-4e25-be3e-03032b10cb9a", "method": "GET"}
+2025-06-19T23:29:46+08:00	[34mINFO[0m	middleware/logger.go:69	Request started	{"request_id": "a6c3ff1c-23e9-485f-83c1-671056fdf4dd", "method": "GET"}
+2025-06-19T23:29:46+08:00	[34mINFO[0m	middleware/logger.go:69	Request started	{"request_id": "2fb85c56-ce8e-4061-9fc5-106fd8cfa1a1", "method": "GET"}
+2025-06-19T23:29:46+08:00	[34mINFO[0m	middleware/logger.go:88	Request completed	{"request_id": "2fb85c56-ce8e-4061-9fc5-106fd8cfa1a1", "method": "GET", "status": 200, "latency": "493.25µs"}
+2025-06-19T23:29:46+08:00	[34mINFO[0m	middleware/logger.go:88	Request completed	{"request_id": "a6c3ff1c-23e9-485f-83c1-671056fdf4dd", "method": "GET", "status": 200, "latency": "1.209375ms"}
+2025-06-19T23:29:46+08:00	[34mINFO[0m	middleware/logger.go:88	Request completed	{"request_id": "7e13b9a8-38aa-4e25-be3e-03032b10cb9a", "method": "GET", "status": 200, "latency": "3.293709ms"}
+2025-06-19T23:29:47+08:00	[34mINFO[0m	middleware/logger.go:69	Request started	{"request_id": "05941272-68b7-4538-9ee7-beab0ff9159e", "method": "GET"}
+2025-06-19T23:29:47+08:00	[34mINFO[0m	middleware/logger.go:88	Request completed	{"request_id": "05941272-68b7-4538-9ee7-beab0ff9159e", "method": "GET", "status": 200, "latency": "52.625µs"}
+2025-06-19T23:29:47+08:00	[34mINFO[0m	middleware/logger.go:69	Request started	{"request_id": "3bc80e42-9054-4168-8f0b-b1f109e4c373", "method": "GET"}
+2025-06-19T23:29:47+08:00	[34mINFO[0m	middleware/logger.go:88	Request completed	{"request_id": "3bc80e42-9054-4168-8f0b-b1f109e4c373", "method": "GET", "status": 200, "latency": "298.333µs"}
+2025-06-19T23:29:56+08:00	[34mINFO[0m	middleware/logger.go:69	Request started	{"request_id": "dcdf295a-2ee1-420a-a15e-c8a95b4b0de6", "method": "POST"}
+2025-06-19T23:29:56+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:47	開始獲取支付地址	{"request_id": "dcdf295a-2ee1-420a-a15e-c8a95b4b0de6", "method": "POST"}
+2025-06-19T23:29:56+08:00	[34mINFO[0m	middleware/logger.go:88	Request completed	{"request_id": "dcdf295a-2ee1-420a-a15e-c8a95b4b0de6", "method": "POST", "status": 200, "latency": "50.5975ms"}
+2025-06-19T23:30:13+08:00	[34mINFO[0m	middleware/logger.go:69	Request started	{"request_id": "a406b54f-09d5-4a8b-88d0-ee8a4290dba6", "method": "POST"}
+2025-06-19T23:30:13+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:47	開始獲取支付地址	{"request_id": "a406b54f-09d5-4a8b-88d0-ee8a4290dba6", "method": "POST"}
+2025-06-19T23:30:13+08:00	[31mERROR[0m	gorm_repo/wallet_address_pool.go:36	invalid transaction	{"request_id": "a406b54f-09d5-4a8b-88d0-ee8a4290dba6", "method": "POST"}
+ec-wallet/internal/infrastructure/repository/gorm_repo.(*repository).GetWalletAddressPool
+	/Users/wayne/github/ec-wallet/internal/infrastructure/repository/gorm_repo/wallet_address_pool.go:36
+ec-wallet/internal/infrastructure/wallet.(*walletService).AcquireAddress
+	/Users/wayne/github/ec-wallet/internal/infrastructure/wallet/wallet_pool.go:108
+ec-wallet/internal/adapters/http/gin-server/handlers.CreatePaymentOrder
+	/Users/wayne/github/ec-wallet/internal/adapters/http/gin-server/handlers/create_payment_order.go:61
+github.com/gin-gonic/gin.(*Context).Next
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185
+ec-wallet/internal/adapters/http/gin-server.SetupRouter.LoggerMiddleware.func3
+	/Users/wayne/github/ec-wallet/internal/adapters/http/gin-server/middleware/logger.go:71
+github.com/gin-gonic/gin.(*Context).Next
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185
+ec-wallet/internal/adapters/http/gin-server.SetupRouter.RequestIDMiddleware.func2
+	/Users/wayne/github/ec-wallet/internal/adapters/http/gin-server/middleware/logger.go:28
+github.com/gin-gonic/gin.(*Context).Next
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/logger.go:249
+github.com/gin-gonic/gin.(*Context).Next
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/gin.go:644
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/gin.go:600
+net/http.serverHandler.ServeHTTP
+	/Users/wayne/.gvm/gos/go1.24/src/net/http/server.go:3301
+net/http.(*conn).serve
+	/Users/wayne/.gvm/gos/go1.24/src/net/http/server.go:2102
+2025-06-19T23:30:13+08:00	[31mERROR[0m	middleware/logger.go:80	Request completed with server error	{"request_id": "a406b54f-09d5-4a8b-88d0-ee8a4290dba6", "method": "POST", "status": 500, "latency": "3.636125ms"}
+ec-wallet/internal/adapters/http/gin-server.SetupRouter.LoggerMiddleware.func3
+	/Users/wayne/github/ec-wallet/internal/adapters/http/gin-server/middleware/logger.go:80
+github.com/gin-gonic/gin.(*Context).Next
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185
+ec-wallet/internal/adapters/http/gin-server.SetupRouter.RequestIDMiddleware.func2
+	/Users/wayne/github/ec-wallet/internal/adapters/http/gin-server/middleware/logger.go:28
+github.com/gin-gonic/gin.(*Context).Next
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/logger.go:249
+github.com/gin-gonic/gin.(*Context).Next
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/gin.go:644
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/gin.go:600
+net/http.serverHandler.ServeHTTP
+	/Users/wayne/.gvm/gos/go1.24/src/net/http/server.go:3301
+net/http.(*conn).serve
+	/Users/wayne/.gvm/gos/go1.24/src/net/http/server.go:2102
+2025-06-19T23:35:40+08:00	[34mINFO[0m	middleware/logger.go:69	Request started	{"request_id": "1d2188ea-183f-42a0-b700-f5a8ec4eb8d6", "method": "POST"}
+2025-06-19T23:35:40+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:47	開始獲取支付地址	{"request_id": "1d2188ea-183f-42a0-b700-f5a8ec4eb8d6", "method": "POST"}
+2025-06-19T23:35:40+08:00	[34mINFO[0m	middleware/logger.go:88	Request completed	{"request_id": "1d2188ea-183f-42a0-b700-f5a8ec4eb8d6", "method": "POST", "status": 200, "latency": "47.1185ms"}
+2025-06-19T23:35:42+08:00	[34mINFO[0m	middleware/logger.go:69	Request started	{"request_id": "ed130a95-e7be-492c-b1d0-7663bfa9db00", "method": "POST"}
+2025-06-19T23:35:42+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:47	開始獲取支付地址	{"request_id": "ed130a95-e7be-492c-b1d0-7663bfa9db00", "method": "POST"}
+2025-06-19T23:35:42+08:00	[34mINFO[0m	middleware/logger.go:88	Request completed	{"request_id": "ed130a95-e7be-492c-b1d0-7663bfa9db00", "method": "POST", "status": 200, "latency": "14.543ms"}
+2025-06-19T23:35:46+08:00	[34mINFO[0m	middleware/logger.go:69	Request started	{"request_id": "2e10bd2e-8810-4932-8758-26b671358623", "method": "POST"}
+2025-06-19T23:35:46+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:47	開始獲取支付地址	{"request_id": "2e10bd2e-8810-4932-8758-26b671358623", "method": "POST"}
+2025-06-19T23:35:46+08:00	[34mINFO[0m	middleware/logger.go:88	Request completed	{"request_id": "2e10bd2e-8810-4932-8758-26b671358623", "method": "POST", "status": 200, "latency": "13.85375ms"}
+2025-06-19T23:35:52+08:00	[34mINFO[0m	middleware/logger.go:69	Request started	{"request_id": "bcaf21ae-0c62-4727-958a-36eb8835290e", "method": "POST"}
+2025-06-19T23:35:52+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:47	開始獲取支付地址	{"request_id": "bcaf21ae-0c62-4727-958a-36eb8835290e", "method": "POST"}
+2025-06-19T23:35:52+08:00	[34mINFO[0m	middleware/logger.go:88	Request completed	{"request_id": "bcaf21ae-0c62-4727-958a-36eb8835290e", "method": "POST", "status": 200, "latency": "14.378416ms"}

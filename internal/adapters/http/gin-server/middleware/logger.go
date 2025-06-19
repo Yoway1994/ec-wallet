@@ -35,10 +35,11 @@ type LoggerConfig struct {
 	LogUserAgent      bool
 	LogRequestURLPath bool
 	LogClientIP       bool
+	LogMethod         bool
 }
 
 // LoggerMiddleware 為每個請求添加帶有 request ID 的 logger
-func LoggerMiddleware(baseLogger *zap.Logger, config LoggerConfig) gin.HandlerFunc {
+func LoggerMiddleware(baseLogger *zap.Logger, config *LoggerConfig) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		requestID, exists := c.Get(string(domain.RequestIDKey))
 		requestIDStr, ok := requestID.(string)
@@ -49,20 +50,25 @@ func LoggerMiddleware(baseLogger *zap.Logger, config LoggerConfig) gin.HandlerFu
 		//
 		fields := []zap.Field{
 			zap.String("request_id", requestIDStr),
-			zap.String("method", c.Request.Method),
 		}
-		if config.LogClientIP {
-			fields = append(fields, zap.String("client_ip", c.ClientIP()))
+		if config != nil {
+			if config.LogClientIP {
+				fields = append(fields, zap.String("client_ip", c.ClientIP()))
+			}
+			if config.LogRequestURLPath {
+				fields = append(fields, zap.String("path", c.Request.URL.Path))
+			}
+			if config.LogQueryParams && c.Request.URL.RawQuery != "" {
+				fields = append(fields, zap.String("query", c.Request.URL.RawQuery))
+			}
+			if config.LogUserAgent {
+				fields = append(fields, zap.String("user_agent", c.Request.UserAgent()))
+			}
+			if config.LogMethod {
+				fields = append(fields, zap.String("method", c.Request.Method))
+			}
 		}
-		if config.LogRequestURLPath {
-			fields = append(fields, zap.String("path", c.Request.URL.Path))
-		}
-		if config.LogQueryParams && c.Request.URL.RawQuery != "" {
-			fields = append(fields, zap.String("query", c.Request.URL.RawQuery))
-		}
-		if config.LogUserAgent {
-			fields = append(fields, zap.String("user_agent", c.Request.UserAgent()))
-		}
+
 		reqLogger := baseLogger.With(fields...)
 		c.Set(string(domain.LoggerKey), reqLogger)
 		//

@@ -17,14 +17,8 @@ func SetupRouter() *gin.Engine {
 
 	//
 	r.Use(middleware.RequestIDMiddleware(""))
-	baseLogger, err := wire.NewLogger()
-	if err != nil {
-		panic(err)
-	}
-	r.Use(middleware.LoggerMiddleware(baseLogger, middleware.LoggerConfig{
-		LogQueryParams: false,
-		LogUserAgent:   false,
-	}))
+	baseLogger := wire.NewLogger()
+	r.Use(middleware.LoggerMiddleware(baseLogger, nil))
 
 	// health check
 	r.GET("/health", func(c *gin.Context) {
