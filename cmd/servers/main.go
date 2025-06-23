@@ -3,6 +3,7 @@ package main
 import (
 	_ "ec-wallet/docs/swagger"
 	ginserver "ec-wallet/internal/adapters/http/gin-server"
+	streamadapter "ec-wallet/internal/adapters/stream"
 
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -14,8 +15,10 @@ import (
 // @BasePath /api
 
 func main() {
-	//
+	// background
+	go streamadapter.StartListeningHandler()
 
+	// client
 	router := ginserver.SetupRouter()
 
 	// Swagger 文檔路徑

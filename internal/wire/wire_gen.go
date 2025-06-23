@@ -49,7 +49,8 @@ func NewStreamService() (stream.Stream, error) {
 	if err != nil {
 		return nil, err
 	}
-	streamStream := streamservice.NewStreamService(client)
+	logger := NewLogger()
+	streamStream := streamservice.NewStreamService(client, logger)
 	return streamStream, nil
 }
 

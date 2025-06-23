@@ -12,11 +12,7 @@ func main() {
 		log.Fatal("初始化監聽器失敗:", err)
 	}
 
-	// 設置 ERC20 Transfer 事件監聽器
-	listener.RegisterEventWatcher("TokenTransfer", chainlistener.Erc20TransferWatcher())
-	// 設置 BNB 轉帳監聽器
-	listener.RegisterTransactionWatcher("BNBTransfer", chainlistener.BnbTransferWatcher())
-	// 設置區塊監聽器 (可選)
+	// 註冊區塊更新
 	listener.RegisterBlockWatcher("NewBlock", chainlistener.BnbBlockWatcher())
 
 	// 監聽地址
@@ -26,4 +22,5 @@ func main() {
 	if err := listener.Start(); err != nil {
 		log.Fatal("監聽器錯誤:", err)
 	}
+
 }

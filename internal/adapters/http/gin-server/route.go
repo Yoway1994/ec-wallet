@@ -20,6 +20,9 @@ func SetupRouter() *gin.Engine {
 	baseLogger := wire.NewLogger()
 	r.Use(middleware.LoggerMiddleware(baseLogger, nil))
 
+	// Add CORS middleware
+	r.Use(middleware.CORS)
+
 	// health check
 	r.GET("/health", func(c *gin.Context) {
 		c.JSON(200, gin.H{

@@ -1,0 +1,78 @@
+2025-06-21T21:29:43+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "1c78dba2-4be0-4e2d-a3ad-fd768b2e9e26"}
+2025-06-21T21:29:43+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "1c78dba2-4be0-4e2d-a3ad-fd768b2e9e26", "status": 200, "latency": "476.541µs"}
+2025-06-21T21:29:43+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "f773b219-aeb7-4e7b-8bf7-0cd6f0aa02af"}
+2025-06-21T21:29:43+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "4d282fed-172d-4243-a08c-86a7315dbdb6"}
+2025-06-21T21:29:43+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "adf39d6f-a145-415f-9e48-741305b0b1d9"}
+2025-06-21T21:29:43+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "adf39d6f-a145-415f-9e48-741305b0b1d9", "status": 200, "latency": "518.875µs"}
+2025-06-21T21:29:43+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "4d282fed-172d-4243-a08c-86a7315dbdb6", "status": 200, "latency": "723.125µs"}
+2025-06-21T21:29:43+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "f773b219-aeb7-4e7b-8bf7-0cd6f0aa02af", "status": 200, "latency": "2.302625ms"}
+2025-06-21T21:29:44+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "bec06f14-bec9-4a17-a6d8-63572fce9d5e"}
+2025-06-21T21:29:44+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "bec06f14-bec9-4a17-a6d8-63572fce9d5e", "status": 200, "latency": "52µs"}
+2025-06-21T21:29:44+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "894f51e3-ce15-4fd3-8d2c-5f1fdd565d79"}
+2025-06-21T21:29:44+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "894f51e3-ce15-4fd3-8d2c-5f1fdd565d79", "status": 200, "latency": "94.417µs"}
+2025-06-21T21:29:50+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "8947c369-8db8-46d5-865d-29a6d46dbbb3"}
+2025-06-21T21:29:50+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:47	開始獲取支付地址	{"request_id": "8947c369-8db8-46d5-865d-29a6d46dbbb3"}
+2025-06-21T21:29:50+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "8947c369-8db8-46d5-865d-29a6d46dbbb3", "status": 200, "latency": "52.929625ms"}
+2025-06-21T21:30:14+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "5a8fe0f5-cc5e-4f89-9b84-fb0271479738"}
+2025-06-21T21:30:14+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:47	開始獲取支付地址	{"request_id": "5a8fe0f5-cc5e-4f89-9b84-fb0271479738"}
+2025-06-21T21:30:14+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "5a8fe0f5-cc5e-4f89-9b84-fb0271479738", "status": 200, "latency": "10.062583ms"}
+2025-06-21T21:30:15+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "8e34074e-f886-42e9-b1a7-07510977fbaf"}
+2025-06-21T21:30:15+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:47	開始獲取支付地址	{"request_id": "8e34074e-f886-42e9-b1a7-07510977fbaf"}
+2025-06-21T21:30:15+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "8e34074e-f886-42e9-b1a7-07510977fbaf", "status": 200, "latency": "7.400791ms"}
+2025-06-21T21:30:24+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "ff4157c0-786e-4878-8aef-245537b4029f"}
+2025-06-21T21:30:24+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:47	開始獲取支付地址	{"request_id": "ff4157c0-786e-4878-8aef-245537b4029f"}
+2025-06-21T21:30:24+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "ff4157c0-786e-4878-8aef-245537b4029f", "status": 200, "latency": "13.031541ms"}
+2025-06-21T21:30:26+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "ccb0cf2e-0168-4679-8d6e-1fc5f9a5876e"}
+2025-06-21T21:30:26+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:47	開始獲取支付地址	{"request_id": "ccb0cf2e-0168-4679-8d6e-1fc5f9a5876e"}
+2025-06-21T21:30:26+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "ccb0cf2e-0168-4679-8d6e-1fc5f9a5876e", "status": 200, "latency": "24.988166ms"}
+2025-06-21T21:30:27+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "ce1703c7-dfba-4cbc-a621-5b4459518c54"}
+2025-06-21T21:30:27+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:47	開始獲取支付地址	{"request_id": "ce1703c7-dfba-4cbc-a621-5b4459518c54"}
+2025-06-21T21:30:27+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "ce1703c7-dfba-4cbc-a621-5b4459518c54", "status": 200, "latency": "6.28675ms"}
+2025-06-21T21:30:31+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "76242b94-4b67-4977-9376-1c25e3aad8b2"}
+2025-06-21T21:30:31+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:47	開始獲取支付地址	{"request_id": "76242b94-4b67-4977-9376-1c25e3aad8b2"}
+2025-06-21T21:30:31+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "76242b94-4b67-4977-9376-1c25e3aad8b2", "status": 200, "latency": "12.529042ms"}
+2025-06-21T21:31:16+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "8a654cb7-cb3f-41e3-8278-0c4675c680d9"}
+2025-06-21T21:31:16+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:47	開始獲取支付地址	{"request_id": "8a654cb7-cb3f-41e3-8278-0c4675c680d9"}
+2025-06-21T21:31:16+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "8a654cb7-cb3f-41e3-8278-0c4675c680d9", "status": 200, "latency": "11.736959ms"}
+2025-06-21T21:31:19+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "00d462e0-2a49-48f4-8f49-11d05549b4f4"}
+2025-06-21T21:31:19+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:47	開始獲取支付地址	{"request_id": "00d462e0-2a49-48f4-8f49-11d05549b4f4"}
+2025-06-21T21:31:19+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "00d462e0-2a49-48f4-8f49-11d05549b4f4", "status": 200, "latency": "13.65ms"}
+2025-06-21T22:24:58+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "1a62eb81-5a60-4ba0-8485-75a34cd812eb"}
+2025-06-21T22:24:58+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:47	開始獲取支付地址	{"request_id": "1a62eb81-5a60-4ba0-8485-75a34cd812eb"}
+2025-06-21T22:24:59+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "1a62eb81-5a60-4ba0-8485-75a34cd812eb", "status": 200, "latency": "48.2775ms"}
+2025-06-21T22:25:09+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "93a3a927-1b9c-4b48-8b98-53c1b33e6394"}
+2025-06-21T22:25:09+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:47	開始獲取支付地址	{"request_id": "93a3a927-1b9c-4b48-8b98-53c1b33e6394"}
+2025-06-21T22:25:09+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "93a3a927-1b9c-4b48-8b98-53c1b33e6394", "status": 200, "latency": "28.268042ms"}
+2025-06-21T22:25:22+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "428ab81b-db2e-474a-b6e6-99a0d86b73a1"}
+2025-06-21T22:25:22+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:47	開始獲取支付地址	{"request_id": "428ab81b-db2e-474a-b6e6-99a0d86b73a1"}
+2025-06-21T22:25:22+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "428ab81b-db2e-474a-b6e6-99a0d86b73a1", "status": 200, "latency": "21.737042ms"}
+2025-06-21T22:25:47+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "41160b9a-4a9b-4cb4-8457-4be2d70c6df7"}
+2025-06-21T22:25:47+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:47	開始獲取支付地址	{"request_id": "41160b9a-4a9b-4cb4-8457-4be2d70c6df7"}
+2025-06-21T22:25:47+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "41160b9a-4a9b-4cb4-8457-4be2d70c6df7", "status": 200, "latency": "10.024916ms"}
+2025-06-21T22:25:54+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "29c4d4d3-9aef-4e9f-8666-2dd5251d0345"}
+2025-06-21T22:25:54+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:47	開始獲取支付地址	{"request_id": "29c4d4d3-9aef-4e9f-8666-2dd5251d0345"}
+2025-06-21T22:25:54+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "29c4d4d3-9aef-4e9f-8666-2dd5251d0345", "status": 200, "latency": "13.707417ms"}
+2025-06-21T22:26:04+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "bce35428-e9c7-4616-a52e-d4009867de42"}
+2025-06-21T22:26:04+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:47	開始獲取支付地址	{"request_id": "bce35428-e9c7-4616-a52e-d4009867de42"}
+2025-06-21T22:26:04+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "bce35428-e9c7-4616-a52e-d4009867de42", "status": 200, "latency": "12.3255ms"}
+2025-06-21T22:28:36+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "e6e59a15-974a-451f-a591-99e084a8e613"}
+2025-06-21T22:28:36+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:47	開始獲取支付地址	{"request_id": "e6e59a15-974a-451f-a591-99e084a8e613"}
+2025-06-21T22:28:36+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "e6e59a15-974a-451f-a591-99e084a8e613", "status": 200, "latency": "14.515292ms"}
+2025-06-21T22:28:44+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "089aa5e8-8e7a-4dbd-adb0-fa862f9d07de"}
+2025-06-21T22:28:44+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:47	開始獲取支付地址	{"request_id": "089aa5e8-8e7a-4dbd-adb0-fa862f9d07de"}
+2025-06-21T22:28:44+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "089aa5e8-8e7a-4dbd-adb0-fa862f9d07de", "status": 200, "latency": "11.20225ms"}
+2025-06-21T22:40:07+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "28022741-3517-4f33-9223-3521ab030540"}
+2025-06-21T22:40:07+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:47	開始獲取支付地址	{"request_id": "28022741-3517-4f33-9223-3521ab030540"}
+2025-06-21T22:40:07+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "28022741-3517-4f33-9223-3521ab030540", "status": 200, "latency": "38.272083ms"}
+2025-06-21T22:40:11+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "3bcd1889-8304-43f7-a4d5-f915ef75be30"}
+2025-06-21T22:40:11+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:47	開始獲取支付地址	{"request_id": "3bcd1889-8304-43f7-a4d5-f915ef75be30"}
+2025-06-21T22:40:11+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "3bcd1889-8304-43f7-a4d5-f915ef75be30", "status": 200, "latency": "15.443625ms"}
+2025-06-21T23:02:08+08:00	[31mERROR[0m	stream/stream.go:118	❌ Redis XRead 錯誤	{"module": "streamService", "error": "dial tcp [::1]:6379: connect: connection refused"}
+ec-wallet/internal/infrastructure/stream.(*streamService).OnListening
+	/Users/wayne/github/ec-wallet/internal/infrastructure/stream/stream.go:118
+2025-06-21T23:02:09+08:00	[31mERROR[0m	stream/stream.go:118	❌ Redis XRead 錯誤	{"module": "streamService", "error": "dial tcp [::1]:6379: connect: connection refused"}
+ec-wallet/internal/infrastructure/stream.(*streamService).OnListening
+	/Users/wayne/github/ec-wallet/internal/infrastructure/stream/stream.go:118
+2025-06-21T23:02:10+08:00	[31mERROR[0m	stream/stream.go:118	❌ Redis XRead 錯誤	{"module": "streamService", "error": "dial tcp [::1]:6379: connect: connection refused"}
+ec-wallet/internal/infrastructure/stream.(*streamService).OnListening
+	/Users/wayne/github/ec-wallet/internal/infrastructure/stream/stream.go:118

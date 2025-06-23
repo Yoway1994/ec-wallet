@@ -10,11 +10,14 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
 )
 
 type PaymentAddressRequest struct {
-	OrderID string `json:"order_id" binding:"required"`
-	Chain   string `json:"chain" binding:"required"`
+	OrderID   string  `json:"order_id"`
+	Chain     string  `json:"chain" binding:"required"`
+	AmountUsd float64 `json:"amount_usd" binding:"required"`
+	Token     string  `json:"token" binding:"required"`
 }
 
 // PaymentAddressResponse 支付地址的響應格式
@@ -51,6 +54,9 @@ func CreatePaymentOrder(c *gin.Context) {
 		return
 	}
 
+	// 先不考慮鏈
+	zapLogger.Debug("收款鏈別:", zap.String("chain", req.Chain))
+
 	// 分配付款地址
 	walletService, err := wire.NewWallet()
 	if err != nil {
@@ -85,7 +91,7 @@ func CreatePaymentOrder(c *gin.Context) {
 	c.JSON(http.StatusOK, PaymentAddressResponse{
 		OrderID:    reservation.ReservationID,
 		Address:    reservation.Address,
-		Chain:      "",
+		Chain:      req.Chain,
 		CreatedAt:  reservation.ReservedAt,
 		ExpireTime: reservation.ExpiresAt,
 	})

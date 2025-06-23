@@ -9,18 +9,20 @@ import (
 	"time"
 
 	"github.com/redis/go-redis/v9"
+	"go.uber.org/zap"
 )
 
 const (
 	ttl = 24 * time.Hour
 )
 
-func NewStreamService(cache *redis.Client) stream.Stream {
-	return &streamService{cache: cache}
+func NewStreamService(cache *redis.Client, logger *zap.Logger) stream.Stream {
+	return &streamService{cache: cache, logger: logger}
 }
 
 type streamService struct {
-	cache *redis.Client
+	cache  *redis.Client
+	logger *zap.Logger
 }
 
 func (s *streamService) WatchAddress(ctx context.Context, req *stream.WatchAddressRequest) error {

@@ -1,0 +1,12 @@
+2025-06-23T23:05:44+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "2891e69a-d70d-4a76-a06b-c42816fa1904"}
+2025-06-23T23:05:44+08:00	[33mWARN[0m	middleware/logger.go:91	Request completed with client error	{"request_id": "2891e69a-d70d-4a76-a06b-c42816fa1904", "status": 404, "latency": "792ns"}
+2025-06-23T23:09:44+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "5d245900-c90f-49c3-8989-8b1f133f5c67"}
+2025-06-23T23:09:44+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "5d245900-c90f-49c3-8989-8b1f133f5c67", "status": 204, "latency": "5.542µs"}
+2025-06-23T23:09:44+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "30ac71e5-88cb-4e39-909f-7eff6fdfe547"}
+2025-06-23T23:09:44+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:50	開始獲取支付地址	{"request_id": "30ac71e5-88cb-4e39-909f-7eff6fdfe547"}
+2025-06-23T23:09:44+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "30ac71e5-88cb-4e39-909f-7eff6fdfe547", "status": 200, "latency": "1.071417ms"}
+2025-06-23T23:12:33+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "bf58bda6-4c74-4804-9eb9-1bb654987956"}
+2025-06-23T23:12:33+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "bf58bda6-4c74-4804-9eb9-1bb654987956", "status": 204, "latency": "4.667µs"}
+2025-06-23T23:12:33+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "19cc49a6-5dd4-4315-bd78-9aac4614baff"}
+2025-06-23T23:12:33+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:50	開始獲取支付地址	{"request_id": "19cc49a6-5dd4-4315-bd78-9aac4614baff"}
+2025-06-23T23:12:33+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "19cc49a6-5dd4-4315-bd78-9aac4614baff", "status": 200, "latency": "458.375µs"}

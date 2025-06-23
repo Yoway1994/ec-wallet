@@ -88,5 +88,5 @@ func NewWallet() (wallet.Wallet, error) {
 }
 
 func NewStreamService() (stream.Stream, error) {
-	panic(wire.Build(streamservice.NewStreamService, NewRedisClient))
+	panic(wire.Build(streamservice.NewStreamService, NewRedisClient, NewLogger))
 }

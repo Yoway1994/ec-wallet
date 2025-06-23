@@ -5,6 +5,7 @@ import (
 	"ec-wallet/internal/wire"
 	"fmt"
 	"log"
+	"math/big"
 	"sync"
 	"time"
 
@@ -21,33 +22,23 @@ const (
 )
 
 type EVMChainListener struct {
-	cache               *redis.Client
-	client              *ethclient.Client
+	// infra
+	cache  *redis.Client
+	client *ethclient.Client
+	ctx    context.Context
+	cancel context.CancelFunc
+	wsURL  string // 保存 URL 用於重連
+	// watcher
 	eventWatchers       map[string]*EventWatcher
 	transactionWatchers map[string]*TransactionWatcher
 	blockWatchers       map[string]*BlockWatcher
-	ctx                 context.Context
-	cancel              context.CancelFunc
-	wsURL               string // 保存 URL 用於重連
-}
-
-// 事件監聽器（合約事件）
-type EventWatcher struct {
-	contractAddress common.Address
-	eventSignature  string
-	handler         func(ctx context.Context, log types.Log) error
-}
-
-// 交易監聽器（原生幣轉帳）
-type TransactionWatcher struct {
-	fromAddress *common.Address // nil 表示監聽所有
-	toAddress   *common.Address // nil 表示監聽所有
-	handler     func(ctx context.Context, tx *types.Transaction) error
-}
-
-// 區塊監聽器
-type BlockWatcher struct {
-	handler func(ctx context.Context, block *types.Block) error
+	// 地址轉帳監聽
+	watchedAddress        map[common.Address]bool
+	watchedAddressMu      sync.RWMutex
+	watchedAddressChanged chan struct{}
+	//
+	// txTrackers   map[common.Hash]*TxConfirmationTracker
+	// trackerMutex sync.RWMutex
 }
 
 func NewEVMChainListener(wsURL string) (*EVMChainListener, error) {
@@ -60,26 +51,17 @@ func NewEVMChainListener(wsURL string) (*EVMChainListener, error) {
 	if err != nil {
 		return nil, fmt.Errorf("redis init fail: %w", err)
 	}
+
 	return &EVMChainListener{
-		client:              client,
-		eventWatchers:       make(map[string]*EventWatcher),
-		transactionWatchers: make(map[string]*TransactionWatcher),
-		blockWatchers:       make(map[string]*BlockWatcher),
-		wsURL:               wsURL,
-		cache:               cache,
+		client:                client,
+		wsURL:                 wsURL,
+		cache:                 cache,
+		eventWatchers:         make(map[string]*EventWatcher),
+		transactionWatchers:   make(map[string]*TransactionWatcher),
+		blockWatchers:         make(map[string]*BlockWatcher),
+		watchedAddress:        make(map[common.Address]bool),
+		watchedAddressChanged: make(chan struct{}, 100),
 	}, nil
-}
-
-func (l *EVMChainListener) RegisterEventWatcher(name string, watcher *EventWatcher) {
-	l.eventWatchers[name] = watcher
-}
-
-func (l *EVMChainListener) RegisterTransactionWatcher(name string, watcher *TransactionWatcher) {
-	l.transactionWatchers[name] = watcher
-}
-
-func (l *EVMChainListener) RegisterBlockWatcher(name string, watcher *BlockWatcher) {
-	l.blockWatchers[name] = watcher
 }
 
 func (l *EVMChainListener) Start() error {
@@ -89,6 +71,7 @@ func (l *EVMChainListener) Start() error {
 		case <-l.ctx.Done():
 			return nil
 		default:
+			log.Println("✅ 監聽器啟動...")
 			err := l.runListeners()
 			if err != nil {
 				log.Printf("監聽器錯誤: %v，3秒後重啟", err)
@@ -103,22 +86,20 @@ func (l *EVMChainListener) Start() error {
 func (l *EVMChainListener) runListeners() error {
 	var wg sync.WaitGroup
 	errChan := make(chan error, 2)
-
 	// WaitGroup 確保我們等到所有監聽器都結束
 	// 才進行重連邏輯
-
-	if len(l.eventWatchers) > 0 {
-		wg.Add(1)
-		go func() {
-			defer wg.Done()
-			if err := l.startEventSubscription(); err != nil {
-				select {
-				case errChan <- err:
-				default:
-				}
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		// 僅處理ERC20轉帳事件
+		log.Println("✅ 訂閱ERC20轉帳事件...")
+		if err := l.startTransferEventSubscription(); err != nil {
+			select {
+			case errChan <- err:
+			default:
 			}
-		}()
-	}
+		}
+	}()
 
 	if len(l.blockWatchers) > 0 || len(l.transactionWatchers) > 0 {
 		wg.Add(1)
@@ -146,27 +127,53 @@ func (l *EVMChainListener) runListeners() error {
 }
 
 // 啟動事件訂閱
-func (l *EVMChainListener) startEventSubscription() error {
-	query := ethereum.FilterQuery{
-		Addresses: l.getWatchedEventAddresses(),
-		Topics:    l.getWatchedEventTopics(),
-	}
-
-	logs := make(chan types.Log)
-	sub, err := l.client.SubscribeFilterLogs(l.ctx, query, logs)
-	if err != nil {
-		return err
-	}
-	defer sub.Unsubscribe()
+func (l *EVMChainListener) startTransferEventSubscription() error {
+	// 使用緩衝通道
+	logs := make(chan types.Log, 1000)
+	// dispatcher
+	go l.dispatchLogs(logs)
 
 	for {
-		select {
-		case err := <-sub.Err():
+		log.Println("✅ 動態更新訂閱...")
+		// 動態訂閱topic
+		query := ethereum.FilterQuery{
+			FromBlock: big.NewInt(55667838),
+			ToBlock:   nil,
+			Addresses: l.getStableCoinAddresses(),
+			Topics:    l.getWatchedTransferEventTopics(),
+		}
+		log.Println("開始訂閱...")
+		sub, err := l.client.SubscribeFilterLogs(l.ctx, query, logs)
+		if err != nil {
+			fmt.Println("訂閱失敗:", err)
 			return err
-		case vLog := <-logs:
-			l.processEventLog(vLog)
+		}
+		subscriptionDone := false
+		log.Println("✅ 訂閱成功，開始處理日誌...")
+		// 處理日誌更新
+		for !subscriptionDone { // 成功訂閱時進入for迴圈
+			select {
+			case err := <-sub.Err():
+				return err
+			case <-l.watchedAddressChanged: // 沒有地址更新時阻塞
+				log.Println("✅ 檢測到地址更新，重新啟動訂閱...")
+				sub.Unsubscribe()
+				subscriptionDone = true // 跳出for迴圈並重新訂閱
+			case <-l.ctx.Done():
+				return nil
+			}
+		}
+	}
+}
+
+func (l *EVMChainListener) dispatchLogs(logs chan types.Log) {
+	for {
+		select {
+		case log := <-logs:
+			fmt.Println("✅ 收到日誌...")
+			go l.processTransferEventLog(log)
 		case <-l.ctx.Done():
-			return nil
+			return
 		}
 	}
 }
@@ -185,30 +192,63 @@ func (l *EVMChainListener) startBlockSubscription() error {
 		case err := <-sub.Err():
 			return err
 		case header := <-headers:
-			l.processBlockHeader(header)
+			go l.processBlockHeader(header)
 		case <-l.ctx.Done():
 			return nil
 		}
 	}
 }
 
-// 處理事件日誌
-func (l *EVMChainListener) processEventLog(vLog types.Log) {
-	for name, watcher := range l.eventWatchers {
-		// 檢查合約地址是否匹配
-		if vLog.Address != watcher.contractAddress {
-			continue
-		}
-
-		// 檢查事件簽名是否匹配
-		eventHash := crypto.Keccak256Hash([]byte(watcher.eventSignature))
-		if len(vLog.Topics) > 0 && vLog.Topics[0] == eventHash {
-			if err := watcher.handler(l.ctx, vLog); err != nil {
-				log.Printf("事件處理器 %s 處理失敗: %v", name, err)
-			}
-		}
-	}
+type transferEvent struct {
+	From        common.Address
+	To          common.Address
+	Value       *big.Int
+	BlockNumber uint64
+	TxHash      common.Hash
 }
+
+func (l *EVMChainListener) processTransferEventLog(vLog types.Log) {
+	var transferEvent transferEvent
+	// 解析事件數據
+	if err := erc20ABI.UnpackIntoInterface(&transferEvent, "Transfer", vLog.Data); err != nil {
+		log.Printf("解析事件失敗: %v", err)
+	}
+
+	// 從 Topics 提取發送方和接收方地址
+	transferEvent.From = common.HexToAddress(vLog.Topics[1].Hex())
+	transferEvent.To = common.HexToAddress(vLog.Topics[2].Hex())
+	transferEvent.BlockNumber = vLog.BlockNumber
+	transferEvent.TxHash = vLog.TxHash
+	log.Printf("🔔 Transfer Event | From: %s | To: %s | Value: %s | Block: %d | TxHash: %s",
+		transferEvent.From.Hex(),
+		transferEvent.To.Hex(),
+		transferEvent.Value.String(),
+		transferEvent.BlockNumber,
+		transferEvent.TxHash.Hex(),
+	)
+	// 通知ec wallet service發現轉帳
+	l.notifyTransferEvent(&transferEvent)
+	// 通知tx tracker開始追蹤
+
+}
+
+// 處理事件日誌
+// func (l *EVMChainListener) processEventLog(vLog types.Log) {
+// 	for name, watcher := range l.eventWatchers {
+// 		// 檢查合約地址是否匹配
+// 		if vLog.Address != watcher.contractAddress {
+// 			continue
+// 		}
+
+// 		// 檢查事件簽名是否匹配
+// 		eventHash := crypto.Keccak256Hash([]byte(watcher.eventSignature))
+// 		if len(vLog.Topics) > 0 && vLog.Topics[0] == eventHash {
+// 			if err := watcher.handler(l.ctx, vLog); err != nil {
+// 				log.Printf("事件處理器 %s 處理失敗: %v", name, err)
+// 			}
+// 		}
+// 	}
+// }
 
 // 處理區塊頭
 func (l *EVMChainListener) processBlockHeader(header *types.Header) {
@@ -270,25 +310,47 @@ func (l *EVMChainListener) reconnect() error {
 }
 
 // 獲取需要監聽的合約地址列表
-func (l *EVMChainListener) getWatchedEventAddresses() []common.Address {
-	addressMap := make(map[common.Address]bool)
-	for _, watcher := range l.eventWatchers {
-		addressMap[watcher.contractAddress] = true
-	}
+// func (l *EVMChainListener) getWatchedEventAddresses() []common.Address {
+// 	// 先用map去除冗餘
+// 	addressMap := make(map[common.Address]bool)
+// 	for _, watcher := range l.eventWatchers {
+// 		addressMap[watcher.contractAddress] = true
+// 	}
 
-	addresses := make([]common.Address, 0, len(addressMap))
-	for addr := range addressMap {
-		addresses = append(addresses, addr)
+// 	addresses := make([]common.Address, 0, len(addressMap))
+// 	for addr := range addressMap {
+// 		addresses = append(addresses, addr)
+// 	}
+// 	return addresses
+// }
+
+// 獲取穩定幣合約地址
+func (l *EVMChainListener) getStableCoinAddresses() []common.Address {
+	return []common.Address{
+		common.HexToAddress("0x0dEb24A269C09CADA1DdA15bE5E6b8B928596c13"), // USDC-bnb-test
 	}
-	return addresses
 }
 
-// 獲取需要監聽的事件主題列表
-func (l *EVMChainListener) getWatchedEventTopics() [][]common.Hash {
-	// 簡化實現: 僅使用所有事件簽名的 hash 作為第一個主題
-	var eventSignatures []common.Hash
-	for _, watcher := range l.eventWatchers {
-		eventSignatures = append(eventSignatures, crypto.Keccak256Hash([]byte(watcher.eventSignature)))
+// 修正版本：正確獲取需要監聽的轉帳事件主題列表
+func (l *EVMChainListener) getWatchedTransferEventTopics() [][]common.Hash {
+	// 準備 topics[2] - to 地址過濾
+	toTopics := make([]common.Hash, 0, len(l.watchedAddress))
+	if len(l.watchedAddress) > 0 {
+		for addr := range l.watchedAddress {
+			paddedAddr := common.BytesToHash(common.LeftPadBytes(addr.Bytes(), 32))
+			toTopics = append(toTopics, paddedAddr)
+		}
 	}
-	return [][]common.Hash{eventSignatures}
+
+	topics := [][]common.Hash{
+		{crypto.Keccak256Hash([]byte(TransferEventSignature))}, // topics[0]: Transfer(address,address,uint256)
+		{}, // topics[1]: 不過濾 from 地址 (空切片表示不過濾)
+		toTopics,
+	}
+
+	return topics
+}
+
+func (l *EVMChainListener) getTransferEventTopics() [][]common.Hash {
+	return [][]common.Hash{{crypto.Keccak256Hash([]byte(TransferEventSignature))}}
 }

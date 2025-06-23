@@ -4,13 +4,15 @@ import (
 	"log"
 	"time"
 
+	"github.com/ethereum/go-ethereum/common"
 	"github.com/redis/go-redis/v9"
 )
 
 const (
+	AddressStreamKey  = "stream:address"
+	TransferStreamKey = "stream:transfer"
+	//
 	WatchActionStart = "start_watch"
-	DataStatusActive = "active"
-	AddressStreamKey = "stream:address"
 )
 
 func (l *EVMChainListener) OnWatchAddress() {
@@ -50,9 +52,7 @@ func (l *EVMChainListener) OnWatchAddress() {
 
 					switch action {
 					case WatchActionStart:
-						l.addWatchAddress(address)
-					case "remove":
-						l.removeWatchAddress(address)
+						l.handleNewWatchAddress(address)
 					default:
 						log.Printf("⚠️ 未知 action: %s", action)
 					}
@@ -60,13 +60,36 @@ func (l *EVMChainListener) OnWatchAddress() {
 			}
 		}
 	}
-
 }
 
-func (l *EVMChainListener) addWatchAddress(address string) {
-
+// 新增監控地址
+func (l *EVMChainListener) handleNewWatchAddress(address string) {
+	l.watchedAddressMu.Lock()
+	defer l.watchedAddressMu.Unlock()
+	// 更新地址並通知
+	addr := common.HexToAddress(address)
+	l.watchedAddress[addr] = true
+	log.Println("✅ 新增監控地址:", address)
+	l.watchedAddressChanged <- struct{}{}
 }
 
-func (l *EVMChainListener) removeWatchAddress(address string) {
-	//
+func (l *EVMChainListener) notifyTransferEvent(event *transferEvent) {
+	eventData := map[string]interface{}{
+		"from":     event.From.String(),
+		"to":       event.To.String(),
+		"value":    event.Value.String(),
+		"txHash":   event.TxHash.String(),
+		"blockNum": event.BlockNumber,
+	}
+
+	// Add to Redis stream
+	_, err := l.cache.XAdd(l.ctx, &redis.XAddArgs{
+		Stream: TransferStreamKey,
+		Values: eventData,
+	}).Result()
+
+	if err != nil {
+		log.Printf("❌ Redis XAdd 錯誤: %v", err)
+		return
+	}
 }
