@@ -12,14 +12,15 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/shopspring/decimal"
 	"go.uber.org/zap"
 )
 
 type PaymentAddressRequest struct {
-	OrderID   string  `json:"order_id" binding:"required"`
-	Chain     string  `json:"chain" binding:"required"`
-	AmountUsd float64 `json:"amount_usd" binding:"required"`
-	Token     string  `json:"token" binding:"required"`
+	OrderID   string `json:"order_id" binding:"required"`
+	Chain     string `json:"chain" binding:"required"`
+	AmountUsd string `json:"amount_usd" binding:"required"`
+	Token     string `json:"token" binding:"required"`
 }
 
 // PaymentAddressResponse 支付地址的響應格式
@@ -56,7 +57,17 @@ func CreatePaymentOrder(c *gin.Context) {
 		utils.HandleError(c, errors.ErrInvalidParameter.WithCause(err))
 		return
 	}
-	zapLogger.Debug("解析Request Body", zap.String("收款鏈別", req.Chain))
+	zapLogger.Debug("解析Request Body",
+		zap.String("收款鏈別", req.Chain),
+		zap.String("付款數量", req.AmountUsd),
+	)
+
+	// 轉換amount usd型別
+	amountUsd, err := decimal.NewFromString(req.AmountUsd)
+	if err != nil {
+		utils.HandleError(c, err)
+		return
+	}
 
 	// 分配付款地址
 	walletService, err := wire.NewWalletService()
@@ -100,7 +111,7 @@ func CreatePaymentOrder(c *gin.Context) {
 		Address:    reservation.Address,
 		Chain:      req.Chain,
 		Token:      req.Token,
-		AmountUSD:  req.AmountUsd,
+		AmountUSD:  amountUsd,
 		ExpireTime: reservation.ExpiresAt,
 	})
 	err = orderService.CreatePaymentOrder(c, newOrder)

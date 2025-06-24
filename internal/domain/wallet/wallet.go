@@ -19,6 +19,7 @@ const (
 type Wallet interface {
 	InitWalletAddressPools(ctx context.Context, chain string, count, batchSize int) ([]uint64, error)
 	AcquireAddress(ctx context.Context, opts ...AcquireOption) (*AddressReservation, error)
+	ReleaseAddress(ctx context.Context, address string) error
 }
 
 // KeyPair represents a derived public-private key pair

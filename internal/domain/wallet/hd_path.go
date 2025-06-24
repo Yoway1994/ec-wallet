@@ -29,6 +29,7 @@ const (
 var SLIP0044SymbolToType = map[string]uint32{
 	"BTC": CoinTypeBTC,
 	"ETH": CoinTypeETH,
+	"BSC": CoinTypeBSC,
 }
 
 type HDPath struct {

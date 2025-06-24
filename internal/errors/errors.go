@@ -39,4 +39,10 @@ var (
 	ErrStreamAddressAlreadyWatched = errors.BadRequest("STREAM_ADDRESS_ALREADY_WATCHED", "該地址已經被監聽中")
 	ErrStreamAddWatchFailed        = errors.InternalServer("STREAM_ADD_WATCH_FAILED", "添加監聽請求到流失敗")
 	ErrStreamSetExpiryFailed       = errors.InternalServer("STREAM_SET_EXPIRY_FAILED", "設置監聽過期時間失敗")
+
+	// Payment Order Validation
+	ErrOrderNotUnique          = errors.InternalServer("ORDER_NOT_UNIQUE", "訂單筆數不為一筆")
+	ErrOrderTokenNotFound      = errors.InternalServer("ORDER_TOKEN_NOT_FOUND", "找不到對應的代幣資訊")
+	ErrOrderContractMismatch   = errors.InternalServer("ORDER_CONTRACT_MISMATCH", "合約地址不匹配")
+	ErrOrderInsufficientAmount = errors.InternalServer("ORDER_INSUFFICIENT_AMOUNT", "付款金額不足")
 )

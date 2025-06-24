@@ -61,7 +61,8 @@ func NewOrderService() (order.Order, error) {
 	if err != nil {
 		return nil, err
 	}
-	orderOrder := orderservice.NewOrderService(repo)
+	v := NewTokens()
+	orderOrder := orderservice.NewOrderService(repo, v)
 	return orderOrder, nil
 }
 
@@ -126,4 +127,18 @@ func NewLogger() *zap.Logger {
 		})
 	}
 	return zLog
+}
+
+var tokens map[string]*order.PaymentToken
+
+var tokensOnce sync.Once
+
+func NewTokens() map[string]*order.PaymentToken {
+	if tokens == nil {
+		tokensOnce.Do(func() {
+			db2, _ := NewDB()
+			tokens = orderservice.ProvideTokens(db2)
+		})
+	}
+	return tokens
 }

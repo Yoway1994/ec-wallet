@@ -12,4 +12,4 @@ goose_down:
 
 # 初始化address pool
 init_pool:
-	go run cmd/cli/main.go init-pool --chain=ETH --count=200
+	go run cmd/cli/main.go init-pool --chain=BSC --count=200

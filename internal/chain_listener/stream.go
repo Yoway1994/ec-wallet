@@ -75,6 +75,7 @@ func (l *EVMChainListener) handleNewWatchAddress(address string) {
 
 func (l *EVMChainListener) notifyTransferEvent(event *transferEvent) {
 	eventData := map[string]interface{}{
+		"address":  event.Address.String(),
 		"from":     event.From.String(),
 		"to":       event.To.String(),
 		"value":    event.Value.String(),

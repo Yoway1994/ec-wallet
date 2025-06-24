@@ -2,11 +2,15 @@ package order
 
 import (
 	"context"
+	"ec-wallet/internal/domain/stream"
 	"time"
+
+	"github.com/shopspring/decimal"
 )
 
 type Order interface {
 	CreatePaymentOrder(ctx context.Context, order *PaymentOrder) error
+	ValidateOrder(ctx context.Context, event *stream.TransferEvent) (bool, error)
 }
 
 const (
@@ -22,11 +26,12 @@ type PaymentOrder struct {
 	Address    string
 	Chain      string
 	Token      string
-	AmountUSD  float64
+	AmountUSD  decimal.Decimal
 	Status     string
 	TxHash     string
 	ExpireTime time.Time
 	PaidAt     *time.Time
+	CreatedAt  time.Time
 }
 
 func NewPaymentOrder(params *NewPaymentOrderParams) *PaymentOrder {
@@ -46,6 +51,11 @@ type NewPaymentOrderParams struct {
 	Address    string
 	Chain      string
 	Token      string
-	AmountUSD  float64
+	AmountUSD  decimal.Decimal
 	ExpireTime time.Time
+}
+
+type QueryPaymentOrdersParams struct {
+	ID      *uint64
+	Address *string
 }

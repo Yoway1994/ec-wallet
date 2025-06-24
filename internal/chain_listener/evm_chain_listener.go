@@ -202,6 +202,7 @@ func (l *EVMChainListener) startBlockSubscription() error {
 type transferEvent struct {
 	From        common.Address
 	To          common.Address
+	Address     common.Address
 	Value       *big.Int
 	BlockNumber uint64
 	TxHash      common.Hash
@@ -219,7 +220,8 @@ func (l *EVMChainListener) processTransferEventLog(vLog types.Log) {
 	transferEvent.To = common.HexToAddress(vLog.Topics[2].Hex())
 	transferEvent.BlockNumber = vLog.BlockNumber
 	transferEvent.TxHash = vLog.TxHash
-	log.Printf("🔔 Transfer Event | From: %s | To: %s | Value: %s | Block: %d | TxHash: %s",
+	log.Printf("🔔 Transfer Event: %s | From: %s | To: %s | Value: %s | Block: %d | TxHash: %s",
+		transferEvent.Address.Hex(),
 		transferEvent.From.Hex(),
 		transferEvent.To.Hex(),
 		transferEvent.Value.String(),

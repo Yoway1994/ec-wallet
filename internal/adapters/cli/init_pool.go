@@ -29,7 +29,7 @@ func NewInitPoolCmd() *cobra.Command {
 		},
 	}
 
-	cmd.Flags().StringVar(&chain, "chain", "ETH", "Blockchain type (ETH, BTC, etc)")
+	cmd.Flags().StringVar(&chain, "chain", "BSC", "Blockchain type (ETH, BTC, etc)")
 	cmd.Flags().IntVar(&count, "count", 100, "Number of addresses to generate")
 	cmd.Flags().IntVar(&batchSize, "batch-size", 20, "Batch size for address generation")
 

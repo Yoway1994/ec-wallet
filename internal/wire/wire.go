@@ -82,6 +82,19 @@ func NewLogger() *zap.Logger {
 	return zLog
 }
 
+var tokens map[string]*order.PaymentToken
+var tokensOnce sync.Once
+
+func NewTokens() map[string]*order.PaymentToken {
+	if tokens == nil {
+		tokensOnce.Do(func() {
+			db, _ := NewDB()
+			tokens = orderservice.ProvideTokens(db)
+		})
+	}
+	return tokens
+}
+
 func NewRepository() (domain.Repo, error) {
 	panic(wire.Build(gormRepoImpl.NewRepository, NewDB))
 }
@@ -95,5 +108,5 @@ func NewStreamService() (stream.Stream, error) {
 }
 
 func NewOrderService() (order.Order, error) {
-	panic(wire.Build(orderservice.NewOrderService, NewRepository))
+	panic(wire.Build(orderservice.NewOrderService, NewRepository, NewTokens))
 }

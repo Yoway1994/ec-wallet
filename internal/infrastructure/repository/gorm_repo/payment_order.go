@@ -34,3 +34,36 @@ func (repo *repository) CreatePaymentOrders(ctx context.Context, tx *gorm.DB, or
 
 	return ids, nil
 }
+
+func (repo *repository) QueryPaymentOrders(ctx context.Context, tx *gorm.DB, params *order.QueryPaymentOrdersParams) ([]*order.PaymentOrder, error) {
+	zapLogger := logger.FromContext(ctx)
+	if tx == nil {
+		tx = repo.Db
+	}
+
+	tx = repo.applyQueryPaymentOrdersParams(tx, params)
+
+	var fetched []*model.PaymentOrder
+	if err := tx.Find(&fetched).Error; err != nil {
+		zapLogger.Error(err.Error())
+		return nil, err
+	}
+
+	return model.BatchPaymentOrderModelToDomain(fetched), nil
+}
+
+func (repo *repository) applyQueryPaymentOrdersParams(query *gorm.DB, params *order.QueryPaymentOrdersParams) *gorm.DB {
+	if params == nil {
+		return query
+	}
+
+	if params.ID != nil {
+		query = query.Where("id = ?", params.ID)
+	}
+
+	if params.Address != nil {
+		query = query.Where("address = ?", params.Address)
+	}
+
+	return query
+}

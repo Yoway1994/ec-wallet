@@ -89,7 +89,7 @@ func (s *walletService) InitWalletAddressPools(ctx context.Context, chain string
 func (s *walletService) AcquireAddress(ctx context.Context, opts ...wallet.AcquireOption) (*wallet.AddressReservation, error) {
 	// 應用默認選項
 	options := wallet.AcquireOptions{
-		CoinType:  wallet.CoinTypeETH,
+		CoinType:  wallet.CoinTypeBSC,
 		ExpiresIn: 24 * time.Hour,
 	}
 
@@ -166,6 +166,24 @@ func (s *walletService) AcquireAddress(ctx context.Context, opts ...wallet.Acqui
 }
 
 func (s *walletService) ReleaseAddress(ctx context.Context, address string) error {
+	tx := s.repo.Begin()
+	defer tx.Rollback()
+	// 改為可用
+	newStatus := wallet.AddressStatusAvailable
+	rowsAffected, err := s.repo.UpdateWalletAddressPools(ctx, tx, &wallet.UpdateWalletAddressPoolsParams{
+		Where: wallet.QueryWalletAddressPoolsParams{
+			Address: &address,
+		},
+		CurrentStatus: &newStatus,
+	})
+	if err != nil {
+		return err
+	}
+	if rowsAffected != 1 {
+		return errors.ErrWalletAddressPoolUpdate
+	}
+
+	_ = tx.Commit()
 	return nil
 }
 

@@ -6,9 +6,10 @@ import (
 )
 
 type orderService struct {
-	repo domain.Repo
+	repo   domain.Repo
+	tokens map[string]*order.PaymentToken
 }
 
-func NewOrderService(repo domain.Repo) order.Order {
-	return &orderService{repo: repo}
+func NewOrderService(repo domain.Repo, tokens map[string]*order.PaymentToken) order.Order {
+	return &orderService{repo: repo, tokens: tokens}
 }

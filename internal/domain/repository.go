@@ -21,5 +21,6 @@ type Repo interface {
 	// WalletAddressLog
 	CreateWalletAddressLogs(ctx context.Context, tx *gorm.DB, logs []*wallet.WalletAddressLog) ([]uint64, error)
 	// PaymentOrder
+	QueryPaymentOrders(ctx context.Context, tx *gorm.DB, params *order.QueryPaymentOrdersParams) ([]*order.PaymentOrder, error)
 	CreatePaymentOrders(ctx context.Context, tx *gorm.DB, orders []*order.PaymentOrder) ([]uint64, error)
 }
