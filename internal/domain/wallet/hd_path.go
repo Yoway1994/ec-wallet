@@ -23,6 +23,7 @@ const (
 	// 常用幣種類型
 	CoinTypeBTC = uint32(0)
 	CoinTypeETH = uint32(60)
+	CoinTypeBSC = uint32(60)
 )
 
 var SLIP0044SymbolToType = map[string]uint32{

@@ -327,7 +327,7 @@ func (l *EVMChainListener) reconnect() error {
 // 獲取穩定幣合約地址
 func (l *EVMChainListener) getStableCoinAddresses() []common.Address {
 	return []common.Address{
-		common.HexToAddress("0x0dEb24A269C09CADA1DdA15bE5E6b8B928596c13"), // USDC-bnb-test
+		common.HexToAddress("0x0dEb24A269C09CADA1DdA15bE5E6b8B928596c13"), // USDC-bsc-test
 	}
 }
 

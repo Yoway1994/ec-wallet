@@ -1,31 +1,28 @@
 basePath: /api
 definitions:
-  handlers.ErrorResponse:
-    properties:
-      code:
-        example: 400
-        type: integer
-      message:
-        example: Invalid order ID
-        type: string
-    type: object
   handlers.PaymentAddressRequest:
     properties:
+      amount_usd:
+        type: number
       chain:
         type: string
       order_id:
         type: string
+      token:
+        type: string
     required:
+    - amount_usd
     - chain
     - order_id
+    - token
     type: object
   handlers.PaymentAddressResponse:
     properties:
       address:
-        example: bnb1w7jflwesfnrp0lfgnthkvq55m8gzrlav5ktmyk
+        example: 0x6C318c04Ed42cEe76a61870543bf70F55aEf1fdb
         type: string
       chain:
-        example: BNB
+        example: BSC
         type: string
       created_at:
         type: string
@@ -33,6 +30,8 @@ definitions:
         type: string
       order_id:
         example: ORD12345678
+        type: string
+      reservation_id:
         type: string
     type: object
 info:
@@ -61,14 +60,6 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/handlers.PaymentAddressResponse'
-        "400":
-          description: Invalid order information
-          schema:
-            $ref: '#/definitions/handlers.ErrorResponse'
-        "500":
-          description: Server error
-          schema:
-            $ref: '#/definitions/handlers.ErrorResponse'
       summary: Create a payment order with cryptocurrency address
       tags:
       - payment

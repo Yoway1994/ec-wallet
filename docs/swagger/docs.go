@@ -45,48 +45,31 @@ const docTemplate = `{
                         "schema": {
                             "$ref": "#/definitions/handlers.PaymentAddressResponse"
                         }
-                    },
-                    "400": {
-                        "description": "Invalid order information",
-                        "schema": {
-                            "$ref": "#/definitions/handlers.ErrorResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Server error",
-                        "schema": {
-                            "$ref": "#/definitions/handlers.ErrorResponse"
-                        }
                     }
                 }
             }
         }
     },
     "definitions": {
-        "handlers.ErrorResponse": {
-            "type": "object",
-            "properties": {
-                "code": {
-                    "type": "integer",
-                    "example": 400
-                },
-                "message": {
-                    "type": "string",
-                    "example": "Invalid order ID"
-                }
-            }
-        },
         "handlers.PaymentAddressRequest": {
             "type": "object",
             "required": [
+                "amount_usd",
                 "chain",
-                "order_id"
+                "order_id",
+                "token"
             ],
             "properties": {
+                "amount_usd": {
+                    "type": "number"
+                },
                 "chain": {
                     "type": "string"
                 },
                 "order_id": {
+                    "type": "string"
+                },
+                "token": {
                     "type": "string"
                 }
             }
@@ -96,11 +79,11 @@ const docTemplate = `{
             "properties": {
                 "address": {
                     "type": "string",
-                    "example": "bnb1w7jflwesfnrp0lfgnthkvq55m8gzrlav5ktmyk"
+                    "example": "0x6C318c04Ed42cEe76a61870543bf70F55aEf1fdb"
                 },
                 "chain": {
                     "type": "string",
-                    "example": "BNB"
+                    "example": "BSC"
                 },
                 "created_at": {
                     "type": "string"
@@ -111,6 +94,9 @@ const docTemplate = `{
                 "order_id": {
                     "type": "string",
                     "example": "ORD12345678"
+                },
+                "reservation_id": {
+                    "type": "string"
                 }
             }
         }

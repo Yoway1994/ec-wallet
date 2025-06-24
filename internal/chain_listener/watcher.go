@@ -57,7 +57,7 @@ func (l *EVMChainListener) RegisterTransactionWatcher(name string, watcher *Tran
 	l.transactionWatchers[name] = watcher
 }
 
-func BnbBlockWatcher() *BlockWatcher {
+func BscBlockWatcher() *BlockWatcher {
 	return &BlockWatcher{
 		handler: func(ctx context.Context, block *types.Block) error {
 			// 輸出日誌

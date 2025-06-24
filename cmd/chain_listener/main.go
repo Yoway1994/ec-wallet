@@ -13,7 +13,7 @@ func main() {
 	}
 
 	// 註冊區塊更新
-	listener.RegisterBlockWatcher("NewBlock", chainlistener.BnbBlockWatcher())
+	listener.RegisterBlockWatcher("NewBlock", chainlistener.BscBlockWatcher())
 
 	// 監聽地址
 	go listener.OnWatchAddress()

@@ -5,7 +5,7 @@ import QRCode from 'vue-qrcode';
 // State for form inputs
 const price = ref('');
 const orderId = ref('');
-const selectedChain = ref('BNB'); // Fixed to BNB only
+const selectedChain = ref('BSC'); // Fixed to BSC only
 const selectedToken = ref('USDT'); // Default to USDT
 const availableTokens = ['USDT', 'USDC'];
 

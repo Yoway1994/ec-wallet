@@ -26,8 +26,8 @@ type PaymentAddressRequest struct {
 type PaymentAddressResponse struct {
 	OrderID       string    `json:"order_id" example:"ORD12345678"`
 	ReservationID string    `json:"reservation_id"`
-	Address       string    `json:"address" example:"bnb1w7jflwesfnrp0lfgnthkvq55m8gzrlav5ktmyk"`
-	Chain         string    `json:"chain" example:"BNB"`
+	Address       string    `json:"address" example:"0x6C318c04Ed42cEe76a61870543bf70F55aEf1fdb"`
+	Chain         string    `json:"chain" example:"BSC"`
 	CreatedAt     time.Time `json:"created_at"`
 	ExpireTime    time.Time `json:"expire_time"`
 }
