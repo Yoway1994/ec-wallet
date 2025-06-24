@@ -1,4 +1,4 @@
-package gormrepo
+package wallet
 
 import "time"
 

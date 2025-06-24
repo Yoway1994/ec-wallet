@@ -2,7 +2,6 @@ package walletservice
 
 import (
 	"context"
-	gormrepo "ec-wallet/internal/domain/gorm_repo"
 	"ec-wallet/internal/domain/wallet"
 	"ec-wallet/internal/errors"
 	"time"
@@ -49,7 +48,7 @@ func (s *walletService) InitWalletAddressPools(ctx context.Context, chain string
 	for i := 0; i < count; i += batchSize {
 		// 處理含尾段的當前batch大小
 		currentBatchSize := min(batchSize, count-i)
-		pools := make([]*gormrepo.WalletAddressPool, 0, currentBatchSize)
+		pools := make([]*wallet.WalletAddressPool, 0, currentBatchSize)
 		// 為當前批次生成地址
 		for j := 0; j < currentBatchSize; j++ {
 			index := startIndex + i + j
@@ -59,7 +58,7 @@ func (s *walletService) InitWalletAddressPools(ctx context.Context, chain string
 				return allIDs, err
 			}
 
-			pool := &gormrepo.WalletAddressPool{
+			pool := &wallet.WalletAddressPool{
 				Address:       keyPair.Address,
 				Chain:         chain,
 				Path:          hdPath.String(),
@@ -105,7 +104,7 @@ func (s *walletService) AcquireAddress(ctx context.Context, opts ...wallet.Acqui
 
 	// 拿取Available address
 	status := wallet.AddressStatusAvailable
-	pool, err := s.repo.GetWalletAddressPool(ctx, tx, &gormrepo.QueryWalletAddressPoolsParams{
+	pool, err := s.repo.GetWalletAddressPool(ctx, tx, &wallet.QueryWalletAddressPoolsParams{
 		CurrentStatus: &status,
 	})
 	if err != nil {
@@ -115,8 +114,8 @@ func (s *walletService) AcquireAddress(ctx context.Context, opts ...wallet.Acqui
 	// 改為佔用
 	expiryTime := time.Now().Add(options.ExpiresIn)
 	newStatus := wallet.AddressStatusReserved
-	rowsAffected, err := s.repo.UpdateWalletAddressPools(ctx, tx, &gormrepo.UpdateWalletAddressPoolsParams{
-		Where: gormrepo.QueryWalletAddressPoolsParams{
+	rowsAffected, err := s.repo.UpdateWalletAddressPools(ctx, tx, &wallet.UpdateWalletAddressPoolsParams{
+		Where: wallet.QueryWalletAddressPoolsParams{
 			ID: &pool.ID,
 		},
 		CurrentStatus: &newStatus,
@@ -130,8 +129,8 @@ func (s *walletService) AcquireAddress(ctx context.Context, opts ...wallet.Acqui
 	}
 
 	// 增加調用紀錄
-	log := gormrepo.NewWalletAddressLog(
-		&gormrepo.NewWalletAddressLogParams{
+	log := wallet.NewWalletAddressLog(
+		&wallet.NewWalletAddressLogParams{
 			AddressID:    pool.ID,
 			Operation:    wallet.AddressLogOperationPayment,
 			StatusAfter:  wallet.AddressStatusReserved,
@@ -144,7 +143,7 @@ func (s *walletService) AcquireAddress(ctx context.Context, opts ...wallet.Acqui
 	)
 
 	// create log
-	ids, err := s.repo.CreateWalletAddressLogs(ctx, tx, []*gormrepo.WalletAddressLog{log})
+	ids, err := s.repo.CreateWalletAddressLogs(ctx, tx, []*wallet.WalletAddressLog{log})
 	if err != nil {
 		return nil, err
 	}
@@ -166,8 +165,8 @@ func (s *walletService) AcquireAddress(ctx context.Context, opts ...wallet.Acqui
 	return reservation, nil
 }
 
-func (s *walletService) ReleaseAddress(ctx context.Context) {
-
+func (s *walletService) ReleaseAddress(ctx context.Context, address string) error {
+	return nil
 }
 
 func (s *walletService) GetMnemonic() string {

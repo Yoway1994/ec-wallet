@@ -1,5 +1,6 @@
 <script setup>
 import { ref, reactive, computed, onUnmounted } from 'vue';
+import QRCode from 'vue-qrcode';
 
 // State for form inputs
 const price = ref('');
@@ -33,10 +34,13 @@ const timeRemaining = computed(() => {
 
   if (diffMs <= 0) return 'Expired';
 
-  const minutes = Math.floor(diffMs / 60000);
+  // Calculate hours, minutes, seconds properly
+  const hours = Math.floor(diffMs / 3600000);
+  const minutes = Math.floor((diffMs % 3600000) / 60000);
   const seconds = Math.floor((diffMs % 60000) / 1000);
 
-  return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  // Format as HH:MM:SS
+  return `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 });
 
 // Call API to generate payment address
@@ -171,8 +175,11 @@ onUnmounted(() => {
         <!-- QR Code placeholder - in a real app, use a QR code library here -->
         <div class="qr-code-container">
           <p>QR Code for:</p>
-          <pre>{{ paymentData.data.address }}</pre>
-          <!-- In a real app, replace with: <qrcode :value="paymentData.data.address" :options="{ width: 200 }" /> -->
+          <QRCode
+            :value="paymentData.data.address"
+            :options="{ width: 200, color: { dark: '#000', light: '#fff' } }"
+            class="qr-code"
+          />
         </div>
       </div>
     </div>
@@ -188,6 +195,29 @@ onUnmounted(() => {
 .token-selector {
   display: flex;
   gap: 1rem;
+}
+
+.qr-code-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.qr-code {
+  margin: 1rem 0;
+}
+
+.address-text {
+  font-family: monospace;
+  font-size: 0.9rem;
+  color: #333;
+  word-break: break-all;
+  max-width: 250px;
+  text-align: center;
   margin-top: 0.5rem;
 }
 

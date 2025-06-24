@@ -1,0 +1,195 @@
+2025-06-24T01:32:37+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "f9e206cf-9556-4b68-a9a5-d5d472f7b567"}
+2025-06-24T01:32:37+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "f9e206cf-9556-4b68-a9a5-d5d472f7b567", "status": 204, "latency": "8.458µs"}
+2025-06-24T01:32:37+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "51526240-46e3-4f5f-86c4-dcecc0e1ae55"}
+2025-06-24T01:32:37+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:53	開始獲取支付地址	{"request_id": "51526240-46e3-4f5f-86c4-dcecc0e1ae55"}
+2025-06-24T01:32:37+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:61	收款鏈別:	{"request_id": "51526240-46e3-4f5f-86c4-dcecc0e1ae55", "chain": "BNB"}
+2025-06-24T01:32:37+08:00	[31mERROR[0m	gorm_repo/payment_order.go:25	ERROR: relation "payment_orders" does not exist (SQLSTATE 42P01)	{"request_id": "51526240-46e3-4f5f-86c4-dcecc0e1ae55"}
+ec-wallet/internal/infrastructure/repository/gorm_repo.(*repository).CreatePaymentOrders
+	/Users/wayne/github/ec-wallet/internal/infrastructure/repository/gorm_repo/payment_order.go:25
+ec-wallet/internal/infrastructure/order.(*orderService).CreatePaymentOrder
+	/Users/wayne/github/ec-wallet/internal/infrastructure/order/payment_order.go:12
+ec-wallet/internal/adapters/http/gin-server/handlers.CreatePaymentOrder
+	/Users/wayne/github/ec-wallet/internal/adapters/http/gin-server/handlers/create_payment_order.go:107
+github.com/gin-gonic/gin.(*Context).Next
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185
+ec-wallet/internal/adapters/http/gin-server/middleware.CORS
+	/Users/wayne/github/ec-wallet/internal/adapters/http/gin-server/middleware/cors.go:16
+github.com/gin-gonic/gin.(*Context).Next
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185
+ec-wallet/internal/adapters/http/gin-server.SetupRouter.LoggerMiddleware.func3
+	/Users/wayne/github/ec-wallet/internal/adapters/http/gin-server/middleware/logger.go:77
+github.com/gin-gonic/gin.(*Context).Next
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185
+ec-wallet/internal/adapters/http/gin-server.SetupRouter.RequestIDMiddleware.func2
+	/Users/wayne/github/ec-wallet/internal/adapters/http/gin-server/middleware/logger.go:28
+github.com/gin-gonic/gin.(*Context).Next
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/logger.go:249
+github.com/gin-gonic/gin.(*Context).Next
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/gin.go:644
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/gin.go:600
+net/http.serverHandler.ServeHTTP
+	/Users/wayne/.gvm/gos/go1.24/src/net/http/server.go:3301
+net/http.(*conn).serve
+	/Users/wayne/.gvm/gos/go1.24/src/net/http/server.go:2102
+2025-06-24T01:32:37+08:00	[31mERROR[0m	middleware/logger.go:86	Request completed with server error	{"request_id": "51526240-46e3-4f5f-86c4-dcecc0e1ae55", "status": 500, "latency": "73.021708ms"}
+ec-wallet/internal/adapters/http/gin-server.SetupRouter.LoggerMiddleware.func3
+	/Users/wayne/github/ec-wallet/internal/adapters/http/gin-server/middleware/logger.go:86
+github.com/gin-gonic/gin.(*Context).Next
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185
+ec-wallet/internal/adapters/http/gin-server.SetupRouter.RequestIDMiddleware.func2
+	/Users/wayne/github/ec-wallet/internal/adapters/http/gin-server/middleware/logger.go:28
+github.com/gin-gonic/gin.(*Context).Next
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/logger.go:249
+github.com/gin-gonic/gin.(*Context).Next
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/gin.go:644
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/gin.go:600
+net/http.serverHandler.ServeHTTP
+	/Users/wayne/.gvm/gos/go1.24/src/net/http/server.go:3301
+net/http.(*conn).serve
+	/Users/wayne/.gvm/gos/go1.24/src/net/http/server.go:2102
+2025-06-24T01:33:41+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "231b443e-c155-4a73-88c2-7751b8806650"}
+2025-06-24T01:33:41+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "231b443e-c155-4a73-88c2-7751b8806650", "status": 204, "latency": "8.208µs"}
+2025-06-24T01:33:41+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "0f10ba5f-ee4d-4b11-8e9c-f891ec11ad7e"}
+2025-06-24T01:33:41+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:53	開始獲取支付地址	{"request_id": "0f10ba5f-ee4d-4b11-8e9c-f891ec11ad7e"}
+2025-06-24T01:33:41+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:61	收款鏈別:	{"request_id": "0f10ba5f-ee4d-4b11-8e9c-f891ec11ad7e", "chain": "BNB"}
+2025-06-24T01:33:41+08:00	[31mERROR[0m	gorm_repo/payment_order.go:25	ERROR: column "deleted_at" of relation "payment_orders" does not exist (SQLSTATE 42703)	{"request_id": "0f10ba5f-ee4d-4b11-8e9c-f891ec11ad7e"}
+ec-wallet/internal/infrastructure/repository/gorm_repo.(*repository).CreatePaymentOrders
+	/Users/wayne/github/ec-wallet/internal/infrastructure/repository/gorm_repo/payment_order.go:25
+ec-wallet/internal/infrastructure/order.(*orderService).CreatePaymentOrder
+	/Users/wayne/github/ec-wallet/internal/infrastructure/order/payment_order.go:12
+ec-wallet/internal/adapters/http/gin-server/handlers.CreatePaymentOrder
+	/Users/wayne/github/ec-wallet/internal/adapters/http/gin-server/handlers/create_payment_order.go:107
+github.com/gin-gonic/gin.(*Context).Next
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185
+ec-wallet/internal/adapters/http/gin-server/middleware.CORS
+	/Users/wayne/github/ec-wallet/internal/adapters/http/gin-server/middleware/cors.go:16
+github.com/gin-gonic/gin.(*Context).Next
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185
+ec-wallet/internal/adapters/http/gin-server.SetupRouter.LoggerMiddleware.func3
+	/Users/wayne/github/ec-wallet/internal/adapters/http/gin-server/middleware/logger.go:77
+github.com/gin-gonic/gin.(*Context).Next
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185
+ec-wallet/internal/adapters/http/gin-server.SetupRouter.RequestIDMiddleware.func2
+	/Users/wayne/github/ec-wallet/internal/adapters/http/gin-server/middleware/logger.go:28
+github.com/gin-gonic/gin.(*Context).Next
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/logger.go:249
+github.com/gin-gonic/gin.(*Context).Next
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/gin.go:644
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/gin.go:600
+net/http.serverHandler.ServeHTTP
+	/Users/wayne/.gvm/gos/go1.24/src/net/http/server.go:3301
+net/http.(*conn).serve
+	/Users/wayne/.gvm/gos/go1.24/src/net/http/server.go:2102
+2025-06-24T01:33:41+08:00	[31mERROR[0m	middleware/logger.go:86	Request completed with server error	{"request_id": "0f10ba5f-ee4d-4b11-8e9c-f891ec11ad7e", "status": 500, "latency": "41.387875ms"}
+ec-wallet/internal/adapters/http/gin-server.SetupRouter.LoggerMiddleware.func3
+	/Users/wayne/github/ec-wallet/internal/adapters/http/gin-server/middleware/logger.go:86
+github.com/gin-gonic/gin.(*Context).Next
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185
+ec-wallet/internal/adapters/http/gin-server.SetupRouter.RequestIDMiddleware.func2
+	/Users/wayne/github/ec-wallet/internal/adapters/http/gin-server/middleware/logger.go:28
+github.com/gin-gonic/gin.(*Context).Next
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185
+github.com/gin-gonic/gin.CustomRecoveryWithWriter.func1
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/recovery.go:102
+github.com/gin-gonic/gin.(*Context).Next
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185
+github.com/gin-gonic/gin.LoggerWithConfig.func1
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/logger.go:249
+github.com/gin-gonic/gin.(*Context).Next
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/context.go:185
+github.com/gin-gonic/gin.(*Engine).handleHTTPRequest
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/gin.go:644
+github.com/gin-gonic/gin.(*Engine).ServeHTTP
+	/Users/wayne/.gvm/pkgsets/go1.24/global/pkg/mod/github.com/gin-gonic/gin@v1.10.1/gin.go:600
+net/http.serverHandler.ServeHTTP
+	/Users/wayne/.gvm/gos/go1.24/src/net/http/server.go:3301
+net/http.(*conn).serve
+	/Users/wayne/.gvm/gos/go1.24/src/net/http/server.go:2102
+2025-06-24T01:34:15+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "b21f2060-34f0-4e46-a8c7-51d3aa53c660"}
+2025-06-24T01:34:15+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "b21f2060-34f0-4e46-a8c7-51d3aa53c660", "status": 204, "latency": "7.041µs"}
+2025-06-24T01:34:15+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "c9edbb9f-1c1e-4d92-8717-601314e4d433"}
+2025-06-24T01:34:15+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:53	開始獲取支付地址	{"request_id": "c9edbb9f-1c1e-4d92-8717-601314e4d433"}
+2025-06-24T01:34:15+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:61	收款鏈別:	{"request_id": "c9edbb9f-1c1e-4d92-8717-601314e4d433", "chain": "BNB"}
+2025-06-24T01:34:15+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "c9edbb9f-1c1e-4d92-8717-601314e4d433", "status": 200, "latency": "60.399291ms"}
+2025-06-24T01:40:30+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "d0a9a07e-4770-4281-83ea-7c24a9e6b498"}
+2025-06-24T01:40:30+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "d0a9a07e-4770-4281-83ea-7c24a9e6b498", "status": 204, "latency": "11.334µs"}
+2025-06-24T01:40:30+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "010c19f3-ce5f-4266-97d5-51574de38d22"}
+2025-06-24T01:40:30+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:53	開始獲取支付地址	{"request_id": "010c19f3-ce5f-4266-97d5-51574de38d22"}
+2025-06-24T01:40:30+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:61	收款鏈別:	{"request_id": "010c19f3-ce5f-4266-97d5-51574de38d22", "chain": "BNB"}
+2025-06-24T01:40:30+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "010c19f3-ce5f-4266-97d5-51574de38d22", "status": 200, "latency": "43.310583ms"}
+2025-06-24T01:50:58+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "cd307f56-25e6-405b-aa78-3bec38defdf3"}
+2025-06-24T01:50:58+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "cd307f56-25e6-405b-aa78-3bec38defdf3", "status": 204, "latency": "6.791µs"}
+2025-06-24T01:50:58+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "322bec7e-0f9f-48e2-a121-c77be6b6b8cd"}
+2025-06-24T01:50:58+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:53	開始獲取支付地址	{"request_id": "322bec7e-0f9f-48e2-a121-c77be6b6b8cd"}
+2025-06-24T01:50:58+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:61	收款鏈別:	{"request_id": "322bec7e-0f9f-48e2-a121-c77be6b6b8cd", "chain": "BNB"}
+2025-06-24T01:50:58+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:77	到期時間	{"request_id": "322bec7e-0f9f-48e2-a121-c77be6b6b8cd", "expires time": "2025-06-25 01:50:58.689731 +0800 CST m=+86414.800434042"}
+2025-06-24T01:50:58+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "322bec7e-0f9f-48e2-a121-c77be6b6b8cd", "status": 200, "latency": "34.674375ms"}
+2025-06-24T01:55:11+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "9294750b-c234-458a-b0f6-7e448e3eefc6"}
+2025-06-24T01:55:11+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "9294750b-c234-458a-b0f6-7e448e3eefc6", "status": 204, "latency": "10.583µs"}
+2025-06-24T01:55:11+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "4ecaaee9-b246-43d0-b3d1-c46ff9d0965e"}
+2025-06-24T01:55:11+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:53	開始獲取支付地址	{"request_id": "4ecaaee9-b246-43d0-b3d1-c46ff9d0965e"}
+2025-06-24T01:55:11+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:61	收款鏈別:	{"request_id": "4ecaaee9-b246-43d0-b3d1-c46ff9d0965e", "chain": "BNB"}
+2025-06-24T01:55:11+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:77	到期時間	{"request_id": "4ecaaee9-b246-43d0-b3d1-c46ff9d0965e", "expires time": "2025-06-25 01:55:11.518198 +0800 CST m=+86404.763657292"}
+2025-06-24T01:55:11+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "4ecaaee9-b246-43d0-b3d1-c46ff9d0965e", "status": 200, "latency": "35.1955ms"}
+2025-06-24T01:57:29+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "9df02e99-4c34-4971-b541-c280ab2faccd"}
+2025-06-24T01:57:29+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "9df02e99-4c34-4971-b541-c280ab2faccd", "status": 204, "latency": "13.792µs"}
+2025-06-24T01:57:29+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "7a6dd9a1-710f-42d1-9644-59a925654fc0"}
+2025-06-24T01:57:29+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:53	開始獲取支付地址	{"request_id": "7a6dd9a1-710f-42d1-9644-59a925654fc0"}
+2025-06-24T01:57:29+08:00	[33mWARN[0m	middleware/logger.go:91	Request completed with client error	{"request_id": "7a6dd9a1-710f-42d1-9644-59a925654fc0", "status": 400, "latency": "128.625µs"}
+2025-06-24T01:57:34+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "e03f9641-523e-4b72-bcc7-e0a0380cec5a"}
+2025-06-24T01:57:34+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "e03f9641-523e-4b72-bcc7-e0a0380cec5a", "status": 204, "latency": "5.334µs"}
+2025-06-24T01:57:34+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "151cef18-e4f7-4f4d-bba6-4d2129609d3f"}
+2025-06-24T01:57:34+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:53	開始獲取支付地址	{"request_id": "151cef18-e4f7-4f4d-bba6-4d2129609d3f"}
+2025-06-24T01:57:34+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:61	收款鏈別:	{"request_id": "151cef18-e4f7-4f4d-bba6-4d2129609d3f", "chain": "BNB"}
+2025-06-24T01:57:34+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:77	到期時間	{"request_id": "151cef18-e4f7-4f4d-bba6-4d2129609d3f", "expires time": "2025-06-25 01:57:34.949094 +0800 CST m=+86548.195014709"}
+2025-06-24T01:57:34+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "151cef18-e4f7-4f4d-bba6-4d2129609d3f", "status": 200, "latency": "19.634709ms"}
+2025-06-24T01:59:43+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "0f19a5e1-a091-4d2b-923f-32ec9bfdc907"}
+2025-06-24T01:59:43+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "0f19a5e1-a091-4d2b-923f-32ec9bfdc907", "status": 204, "latency": "3.791µs"}
+2025-06-24T01:59:43+08:00	[34mINFO[0m	middleware/logger.go:75	Request started	{"request_id": "7e431166-656b-4fe1-b9b0-67a120865f48"}
+2025-06-24T01:59:43+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:53	開始獲取支付地址	{"request_id": "7e431166-656b-4fe1-b9b0-67a120865f48"}
+2025-06-24T01:59:43+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:61	收款鏈別:	{"request_id": "7e431166-656b-4fe1-b9b0-67a120865f48", "chain": "BNB"}
+2025-06-24T01:59:43+08:00	[35mDEBUG[0m	handlers/create_payment_order.go:77	到期時間	{"request_id": "7e431166-656b-4fe1-b9b0-67a120865f48", "expires time": "2025-06-25 01:59:43.88314 +0800 CST m=+86677.129475584"}
+2025-06-24T01:59:43+08:00	[34mINFO[0m	middleware/logger.go:94	Request completed	{"request_id": "7e431166-656b-4fe1-b9b0-67a120865f48", "status": 200, "latency": "18.908875ms"}

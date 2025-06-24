@@ -8,12 +8,14 @@ package wire
 
 import (
 	"ec-wallet/configs"
-	"ec-wallet/internal/domain/gorm_repo"
+	"ec-wallet/internal/domain"
+	"ec-wallet/internal/domain/order"
 	"ec-wallet/internal/domain/stream"
 	"ec-wallet/internal/domain/wallet"
 	"ec-wallet/internal/infrastructure/cache"
 	"ec-wallet/internal/infrastructure/database"
 	"ec-wallet/internal/infrastructure/logger"
+	"ec-wallet/internal/infrastructure/order"
 	"ec-wallet/internal/infrastructure/repository/gorm_repo"
 	"ec-wallet/internal/infrastructure/stream"
 	"ec-wallet/internal/infrastructure/wallet"
@@ -25,7 +27,7 @@ import (
 
 // Injectors from wire.go:
 
-func NewRepository() (gormrepo.Repo, error) {
+func NewRepository() (domain.Repo, error) {
 	gormDB, err := NewDB()
 	if err != nil {
 		return nil, err
@@ -34,7 +36,7 @@ func NewRepository() (gormrepo.Repo, error) {
 	return repo, nil
 }
 
-func NewWallet() (wallet.Wallet, error) {
+func NewWalletService() (wallet.Wallet, error) {
 	configsConfig := NewConfig()
 	repo, err := NewRepository()
 	if err != nil {
@@ -52,6 +54,15 @@ func NewStreamService() (stream.Stream, error) {
 	logger := NewLogger()
 	streamStream := streamservice.NewStreamService(client, logger)
 	return streamStream, nil
+}
+
+func NewOrderService() (order.Order, error) {
+	repo, err := NewRepository()
+	if err != nil {
+		return nil, err
+	}
+	orderOrder := orderservice.NewOrderService(repo)
+	return orderOrder, nil
 }
 
 // wire.go:

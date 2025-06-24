@@ -5,15 +5,18 @@ package wire
 
 import (
 	"ec-wallet/configs"
-	gormrepo "ec-wallet/internal/domain/gorm_repo"
+	"ec-wallet/internal/domain"
+	"ec-wallet/internal/domain/order"
 	"ec-wallet/internal/domain/stream"
 	"ec-wallet/internal/domain/wallet"
 	"ec-wallet/internal/infrastructure/cache"
 	"ec-wallet/internal/infrastructure/database"
 	"ec-wallet/internal/infrastructure/logger"
+	orderservice "ec-wallet/internal/infrastructure/order"
 	gormRepoImpl "ec-wallet/internal/infrastructure/repository/gorm_repo"
 	streamservice "ec-wallet/internal/infrastructure/stream"
 	walletservice "ec-wallet/internal/infrastructure/wallet"
+
 	"sync"
 
 	"github.com/google/wire"
@@ -79,14 +82,18 @@ func NewLogger() *zap.Logger {
 	return zLog
 }
 
-func NewRepository() (gormrepo.Repo, error) {
+func NewRepository() (domain.Repo, error) {
 	panic(wire.Build(gormRepoImpl.NewRepository, NewDB))
 }
 
-func NewWallet() (wallet.Wallet, error) {
+func NewWalletService() (wallet.Wallet, error) {
 	panic(wire.Build(walletservice.NewWalletService, NewConfig, NewRepository))
 }
 
 func NewStreamService() (stream.Stream, error) {
 	panic(wire.Build(streamservice.NewStreamService, NewRedisClient, NewLogger))
+}
+
+func NewOrderService() (order.Order, error) {
+	panic(wire.Build(orderservice.NewOrderService, NewRepository))
 }

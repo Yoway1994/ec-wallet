@@ -17,7 +17,7 @@ func NewInitPoolCmd() *cobra.Command {
 		Use:   "init-pool",
 		Short: "Initialize wallet address pool",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			walletService, err := wire.NewWallet()
+			walletService, err := wire.NewWalletService()
 			if err != nil {
 				return err
 			}

@@ -2,7 +2,7 @@ package gormRepoImpl
 
 import (
 	"context"
-	gormrepo "ec-wallet/internal/domain/gorm_repo"
+	"ec-wallet/internal/domain/wallet"
 	"ec-wallet/internal/infrastructure/logger"
 	model "ec-wallet/internal/infrastructure/repository/model/gorm"
 	"time"
@@ -10,7 +10,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func (repo *repository) QueryWalletAddressPools(ctx context.Context, tx *gorm.DB, params *gormrepo.QueryWalletAddressPoolsParams) ([]*gormrepo.WalletAddressPool, error) {
+func (repo *repository) QueryWalletAddressPools(ctx context.Context, tx *gorm.DB, params *wallet.QueryWalletAddressPoolsParams) ([]*wallet.WalletAddressPool, error) {
 	zapLogger := logger.FromContext(ctx)
 	if tx == nil {
 		tx = repo.Db
@@ -27,7 +27,7 @@ func (repo *repository) QueryWalletAddressPools(ctx context.Context, tx *gorm.DB
 	return model.BatchWalletAddressPoolModelToDomain(fetched), nil
 }
 
-func (repo *repository) GetWalletAddressPool(ctx context.Context, tx *gorm.DB, params *gormrepo.QueryWalletAddressPoolsParams) (*gormrepo.WalletAddressPool, error) {
+func (repo *repository) GetWalletAddressPool(ctx context.Context, tx *gorm.DB, params *wallet.QueryWalletAddressPoolsParams) (*wallet.WalletAddressPool, error) {
 	zapLogger := logger.FromContext(ctx)
 	if tx == nil {
 		tx = repo.Db
@@ -41,7 +41,7 @@ func (repo *repository) GetWalletAddressPool(ctx context.Context, tx *gorm.DB, p
 	return model.WalletAddressPoolModelToDomain(&fetched), nil
 }
 
-func (repo *repository) UpdateWalletAddressPools(ctx context.Context, tx *gorm.DB, updates *gormrepo.UpdateWalletAddressPoolsParams) (int64, error) {
+func (repo *repository) UpdateWalletAddressPools(ctx context.Context, tx *gorm.DB, updates *wallet.UpdateWalletAddressPoolsParams) (int64, error) {
 	zapLogger := logger.FromContext(ctx)
 	if tx == nil {
 		tx = repo.Db
@@ -73,7 +73,7 @@ func (repo *repository) UpdateWalletAddressPools(ctx context.Context, tx *gorm.D
 	return result.RowsAffected, nil
 }
 
-func (repo *repository) applyQueryWalletAddressPoolsParams(query *gorm.DB, params *gormrepo.QueryWalletAddressPoolsParams) *gorm.DB {
+func (repo *repository) applyQueryWalletAddressPoolsParams(query *gorm.DB, params *wallet.QueryWalletAddressPoolsParams) *gorm.DB {
 	if params == nil {
 		return query
 	}
@@ -97,7 +97,7 @@ func (repo *repository) applyQueryWalletAddressPoolsParams(query *gorm.DB, param
 	return query
 }
 
-func (repo *repository) CreateWalletAddressPools(ctx context.Context, tx *gorm.DB, pools []*gormrepo.WalletAddressPool) ([]uint64, error) {
+func (repo *repository) CreateWalletAddressPools(ctx context.Context, tx *gorm.DB, pools []*wallet.WalletAddressPool) ([]uint64, error) {
 	zapLogger := logger.FromContext(ctx)
 	if tx == nil {
 		tx = repo.Db

@@ -2,7 +2,9 @@ package handlers
 
 import (
 	"ec-wallet/internal/adapters/http/gin-server/utils"
+	"ec-wallet/internal/domain/order"
 	"ec-wallet/internal/domain/stream"
+	"ec-wallet/internal/domain/wallet"
 	"ec-wallet/internal/errors"
 	"ec-wallet/internal/infrastructure/logger"
 	"ec-wallet/internal/wire"
@@ -14,7 +16,7 @@ import (
 )
 
 type PaymentAddressRequest struct {
-	OrderID   string  `json:"order_id"`
+	OrderID   string  `json:"order_id" binding:"required"`
 	Chain     string  `json:"chain" binding:"required"`
 	AmountUsd float64 `json:"amount_usd" binding:"required"`
 	Token     string  `json:"token" binding:"required"`
@@ -22,11 +24,12 @@ type PaymentAddressRequest struct {
 
 // PaymentAddressResponse 支付地址的響應格式
 type PaymentAddressResponse struct {
-	OrderID    string    `json:"order_id" example:"ORD12345678"`
-	Address    string    `json:"address" example:"bnb1w7jflwesfnrp0lfgnthkvq55m8gzrlav5ktmyk"`
-	Chain      string    `json:"chain" example:"BNB"`
-	CreatedAt  time.Time `json:"created_at"`
-	ExpireTime time.Time `json:"expire_time"`
+	OrderID       string    `json:"order_id" example:"ORD12345678"`
+	ReservationID string    `json:"reservation_id"`
+	Address       string    `json:"address" example:"bnb1w7jflwesfnrp0lfgnthkvq55m8gzrlav5ktmyk"`
+	Chain         string    `json:"chain" example:"BNB"`
+	CreatedAt     time.Time `json:"created_at"`
+	ExpireTime    time.Time `json:"expire_time"`
 }
 
 // ErrorResponse 錯誤響應的格式
@@ -53,24 +56,22 @@ func CreatePaymentOrder(c *gin.Context) {
 		utils.HandleError(c, errors.ErrInvalidParameter.WithCause(err))
 		return
 	}
-
-	// 先不考慮鏈
-	zapLogger.Debug("收款鏈別:", zap.String("chain", req.Chain))
+	zapLogger.Debug("解析Request Body", zap.String("收款鏈別", req.Chain))
 
 	// 分配付款地址
-	walletService, err := wire.NewWallet()
+	walletService, err := wire.NewWalletService()
 	if err != nil {
 		utils.HandleError(c, err)
 		return
 	}
 
-	reservation, err := walletService.AcquireAddress(c)
+	reservation, err := walletService.AcquireAddress(c,
+		wallet.WithOrderID(req.OrderID))
 	if err != nil {
 		utils.HandleError(c, err)
 		return
 	}
-
-	// 保存訂單和地址的對應關係到資料庫
+	zapLogger.Debug("分配地址", zap.String("到期時間", reservation.ExpiresAt.String()))
 
 	// 通知開始監聽特定地址
 	streamService, err := wire.NewStreamService()
@@ -80,8 +81,29 @@ func CreatePaymentOrder(c *gin.Context) {
 	}
 	err = streamService.WatchAddress(c, &stream.WatchAddressRequest{
 		Address: reservation.Address,
-		Chain:   "BNB",
+		Chain:   req.Chain,
 	})
+	if err != nil {
+		utils.HandleError(c, err)
+		return
+	}
+
+	// 保存訂單和地址的對應關係到資料庫
+	orderService, err := wire.NewOrderService()
+	if err != nil {
+		utils.HandleError(c, err)
+		return
+	}
+
+	newOrder := order.NewPaymentOrder(&order.NewPaymentOrderParams{
+		OrderID:    req.OrderID,
+		Address:    reservation.Address,
+		Chain:      req.Chain,
+		Token:      req.Token,
+		AmountUSD:  req.AmountUsd,
+		ExpireTime: reservation.ExpiresAt,
+	})
+	err = orderService.CreatePaymentOrder(c, newOrder)
 	if err != nil {
 		utils.HandleError(c, err)
 		return
@@ -89,10 +111,11 @@ func CreatePaymentOrder(c *gin.Context) {
 
 	//
 	c.JSON(http.StatusOK, PaymentAddressResponse{
-		OrderID:    reservation.ReservationID,
-		Address:    reservation.Address,
-		Chain:      req.Chain,
-		CreatedAt:  reservation.ReservedAt,
-		ExpireTime: reservation.ExpiresAt,
+		OrderID:       req.OrderID,
+		ReservationID: reservation.ReservationID,
+		Address:       reservation.Address,
+		Chain:         req.Chain,
+		CreatedAt:     reservation.ReservedAt,
+		ExpireTime:    reservation.ExpiresAt,
 	})
 }

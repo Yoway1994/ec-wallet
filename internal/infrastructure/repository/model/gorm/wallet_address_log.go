@@ -1,7 +1,7 @@
 package model
 
 import (
-	gormrepo "ec-wallet/internal/domain/gorm_repo"
+	"ec-wallet/internal/domain/wallet"
 	"time"
 )
 
@@ -24,7 +24,7 @@ func (WalletAddressLog) TableName() string {
 }
 
 // WalletAddressLogDomainToModel 轉換domain為model
-func WalletAddressLogDomainToModel(d *gormrepo.WalletAddressLog) (m *WalletAddressLog) {
+func WalletAddressLogDomainToModel(d *wallet.WalletAddressLog) (m *WalletAddressLog) {
 	return &WalletAddressLog{
 		ID:           d.ID,
 		AddressID:    d.AddressID,
@@ -39,7 +39,7 @@ func WalletAddressLogDomainToModel(d *gormrepo.WalletAddressLog) (m *WalletAddre
 }
 
 // BatchWalletAddressLogDomainToModel 批量轉換domain為model
-func BatchWalletAddressLogDomainToModel(ds []*gormrepo.WalletAddressLog) (ms []*WalletAddressLog) {
+func BatchWalletAddressLogDomainToModel(ds []*wallet.WalletAddressLog) (ms []*WalletAddressLog) {
 	for _, d := range ds {
 		ms = append(ms, WalletAddressLogDomainToModel(d))
 	}

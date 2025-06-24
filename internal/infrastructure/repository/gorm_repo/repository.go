@@ -1,7 +1,7 @@
 package gormRepoImpl
 
 import (
-	gormrepo "ec-wallet/internal/domain/gorm_repo"
+	"ec-wallet/internal/domain"
 
 	"gorm.io/gorm"
 )
@@ -10,7 +10,7 @@ type repository struct {
 	Db *gorm.DB
 }
 
-func NewRepository(db *gorm.DB) gormrepo.Repo {
+func NewRepository(db *gorm.DB) domain.Repo {
 	return &repository{Db: db}
 }
 

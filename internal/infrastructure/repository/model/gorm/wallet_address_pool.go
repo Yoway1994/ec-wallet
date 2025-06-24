@@ -1,7 +1,7 @@
 package model
 
 import (
-	gormrepo "ec-wallet/internal/domain/gorm_repo"
+	"ec-wallet/internal/domain/wallet"
 	"time"
 )
 
@@ -23,21 +23,21 @@ func (WalletAddressPool) TableName() string {
 	return "wallet_address_pools"
 }
 
-func BatchWalletAddressPoolModelToDomain(ms []*WalletAddressPool) (ds []*gormrepo.WalletAddressPool) {
+func BatchWalletAddressPoolModelToDomain(ms []*WalletAddressPool) (ds []*wallet.WalletAddressPool) {
 	for _, m := range ms {
 		ds = append(ds, WalletAddressPoolModelToDomain(m))
 	}
 	return
 }
-func BatchWalletAddressPoolDomainToModel(ds []*gormrepo.WalletAddressPool) (ms []*WalletAddressPool) {
+func BatchWalletAddressPoolDomainToModel(ds []*wallet.WalletAddressPool) (ms []*WalletAddressPool) {
 	for _, d := range ds {
 		ms = append(ms, WalletAddressPoolDomainToModel(d))
 	}
 	return
 }
 
-func WalletAddressPoolModelToDomain(m *WalletAddressPool) (d *gormrepo.WalletAddressPool) {
-	return &gormrepo.WalletAddressPool{
+func WalletAddressPoolModelToDomain(m *WalletAddressPool) (d *wallet.WalletAddressPool) {
+	return &wallet.WalletAddressPool{
 		ID:            m.ID,
 		Address:       m.Address,
 		Chain:         m.Chain,
@@ -50,7 +50,7 @@ func WalletAddressPoolModelToDomain(m *WalletAddressPool) (d *gormrepo.WalletAdd
 	}
 }
 
-func WalletAddressPoolDomainToModel(d *gormrepo.WalletAddressPool) (m *WalletAddressPool) {
+func WalletAddressPoolDomainToModel(d *wallet.WalletAddressPool) (m *WalletAddressPool) {
 	return &WalletAddressPool{
 		ID:            d.ID,
 		Address:       d.Address,
